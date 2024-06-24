@@ -8,3 +8,5 @@
 /storage/*.key
 /vendor
 .env
+git 
+git.pub
