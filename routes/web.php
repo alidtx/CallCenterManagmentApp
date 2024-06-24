@@ -9,6 +9,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LeadController;
+use App\Http\Controllers\CampaignController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,6 +84,15 @@ Route::group(['middleware' => ['auth']], function () {;
         Route::get('download', [LeadController::class,'download'])->name('lead.download');
         Route::get('submission_form', [LeadController::class,'leadSubmissionForm'])->name('lead.submission_form');
         Route::post('store', [LeadController::class,'store'])->name('lead.store');
+    });
+
+    route::prefix('campaign')->group(function(){
+        
+        Route::get('list', [CampaignController::class,'index'])->name('campaign.list');
+        Route::get('add', [CampaignController::class,'create'])->name('campaign.add');
+        Route::get('add/{id}', [CampaignController::class,'create'])->name('campaign.addProcess');
+        Route::post('store', [CampaignController::class,'store'])->name('campaign.store');
+        Route::get('status/{status}/{id}', [CampaignController::class,'status'])->name('campaign.status');
     });
 
     
