@@ -70,7 +70,8 @@ body{
                  <p class="title">This is a title to be palced</p>
             </div>
         <div class="formsection">
-               <form action="{{ route('lead.store')}}" method="post" id="formSubmission">
+          
+                <form action="{{ route('lead.store')}}" method="post" id="formSubmission" >
                    @csrf
                    <div class="row">
                     <div class="form-group col-sm-6">
@@ -113,10 +114,9 @@ body{
                         <label>Campaign<small style="color: brown">*</small></label>
                          <select name="campaign_id" id="campaign" class="form-control"> 
                               <option value="">----Select Campaign----</option>
-                             <option value="1">Campaign 1</option>
-                             <option value="2">Campaign 2</option>
-                             <option value="3">Campaign 3</option>
-                             <option value="4">Campaign 4</option>
+                               @foreach ($campaigns as $campaign )
+                               <option value="{{ $campaign->id }}">{{ $campaign->name }}</option>
+                               @endforeach  
                          </select>
                          <span class="msg_errors msg_campaign_id"></span>
                     </div>
@@ -134,11 +134,14 @@ body{
                     </div>
 
                     </div>
-                     
+                
                    </div>
-                  </div>
-                  <button type="submit"  class="btn btn-primary">Submit Now</button> 
-               </form>
+                   <button type="submit"  class="btn btn-primary">Submit Now</button> 
+                </form>
+                 </div>
+                 
+             
+               
         </div>    
     </div> 
    </section>
@@ -159,12 +162,16 @@ body{
                      data: formData,
                      headers: {
                      'X-CSRF-TOKEN': token
-                      },
+                      }, 
                     success: function (response) {
+                         
                         if(response.errors){
                            $.each(response.errors, function(key,val){
-                              $(".msg_"+key).html(val);                  
+                              $(".msg_"+key).html(val);                
                            });
+                        }else{
+                             $("#formSubmission").empty();
+                             $(".formsection").html("<p style='text-align:center; font-size:20px'>Lead Submitted Successfully.<br> Go for next one</p>")
                         }
                     }
            })

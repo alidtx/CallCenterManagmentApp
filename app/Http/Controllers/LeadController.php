@@ -6,6 +6,7 @@ use App\Models\Lead;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Http\Requests\LeadRequest;
+use App\Models\Campaign;
 use Illuminate\Support\Facades\Auth;
 use PDF;
 use Illuminate\Support\Facades\Validator;
@@ -45,7 +46,8 @@ class LeadController extends Controller
 
     public function leadSubmissionForm() 
     {      
-    return view('backend.lead.submission_form');
+        $data['campaigns']=Campaign::get();
+    return view('backend.lead.submission_form', $data);
     }
  
 

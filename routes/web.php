@@ -10,6 +10,7 @@ use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\SalaryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +21,9 @@ use App\Http\Controllers\CampaignController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('email', [CampaignController::class,'email'])->name('campaign.email');
+
 
 Route::get('/', function () {
     return view('auth.login');
@@ -87,12 +91,32 @@ Route::group(['middleware' => ['auth']], function () {;
     });
 
     route::prefix('campaign')->group(function(){
-        
+
         Route::get('list', [CampaignController::class,'index'])->name('campaign.list');
         Route::get('add', [CampaignController::class,'create'])->name('campaign.add');
         Route::get('add/{id}', [CampaignController::class,'create'])->name('campaign.addProcess');
         Route::post('store', [CampaignController::class,'store'])->name('campaign.store');
         Route::get('status/{status}/{id}', [CampaignController::class,'status'])->name('campaign.status');
+    });
+
+
+    route::prefix('salary')->group(function(){
+
+        Route::get('list', [SalaryController::class,'index'])->name('salary.list');
+        Route::get('add', [SalaryController::class,'create'])->name('salary.add');
+        Route::get('add/{id}', [SalaryController::class,'create'])->name('salary.addProcess');
+        Route::post('store', [SalaryController::class,'store'])->name('salary.store');
+        Route::get('status/{status}/{id}', [SalaryController::class,'status'])->name('salary.status');
+    });
+
+    route::prefix('attendance')->group(function(){
+
+        Route::get('list', [SalaryController::class,'index'])->name('attendance.list');
+        Route::get('add', [SalaryController::class,'create'])->name('attendance.add');
+        Route::get('add/{id}', [SalaryController::class,'create'])->name('attendance.addProcess');
+        Route::post('store', [SalaryController::class,'store'])->name('v.store');
+        Route::get('status/{status}/{id}', [SalaryController::class,'status'])->name('attendance.status');
+        
     });
 
     

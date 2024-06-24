@@ -6,6 +6,9 @@ use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Http\Requests\CampaignRequest;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+
 class CampaignController extends Controller
 {
  
@@ -37,7 +40,7 @@ class CampaignController extends Controller
          Toastr::success('campaign edited successfully', 'edited');
          }else{
          $model=New Campaign();   
-         
+
          Toastr::success('campaign created successfully', 'Created');
          }
          $model->name=$request->name;
@@ -54,6 +57,19 @@ class CampaignController extends Controller
      return redirect()->route('campaign.list');
      Toastr::success('campaign status has changed successfully', 'Status');
   }
+
+
+  public function email() {
+
+    $data = ['Name' => 'alirimon', 'data' => 'Hello Ali'];
+    $user['to']='alirimon5@gmail.com'; 
+    Mail::send('backend/campaign/mail', $data, function($message) use ($user) {
+        $message->to($user['to']);
+        $message->subject('Hello Dev');
+    });
+
+}
+
 
 
 }
