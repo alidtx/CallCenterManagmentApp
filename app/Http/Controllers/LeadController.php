@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lead;
 use Illuminate\Http\Request;
-use Brian2694\Toastr\Facades\Toastr;
+
 use App\Http\Requests\LeadRequest;
 use App\Models\Campaign;
 use Illuminate\Support\Facades\Auth;

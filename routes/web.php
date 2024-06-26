@@ -11,6 +11,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\AttendanceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -96,7 +97,8 @@ Route::group(['middleware' => ['auth']], function () {;
         Route::get('add', [CampaignController::class,'create'])->name('campaign.add');
         Route::get('add/{id}', [CampaignController::class,'create'])->name('campaign.addProcess');
         Route::post('store', [CampaignController::class,'store'])->name('campaign.store');
-        Route::get('status/{status}/{id}', [CampaignController::class,'status'])->name('campaign.status');
+     Route::get('status/{status}/{id}', [CampaignController::class,'status'])->name('campaign.status');
+        
     });
 
 
@@ -110,14 +112,12 @@ Route::group(['middleware' => ['auth']], function () {;
     });
 
     route::prefix('attendance')->group(function(){
-
-        Route::get('list', [SalaryController::class,'index'])->name('attendance.list');
-        Route::get('add', [SalaryController::class,'create'])->name('attendance.add');
-        Route::get('add/{id}', [SalaryController::class,'create'])->name('attendance.addProcess');
-        Route::post('store', [SalaryController::class,'store'])->name('v.store');
-        Route::get('status/{status}/{id}', [SalaryController::class,'status'])->name('attendance.status');
-        
+        Route::get('list', [AttendanceController::class,'index'])->name('attendance.list');
+        Route::get('store', [AttendanceController::class,'store'])->name('attendance.store');
+        Route::get('late_attend', [AttendanceController::class,'lateAttend'])->name('attendance.late_attend');
+        Route::post('reason_late_in', [AttendanceController::class,'ReasonLetIn'])->name('attendance.reason_late_in');
     });
+  
 
     
 

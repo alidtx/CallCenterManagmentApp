@@ -51,6 +51,51 @@ class PermissionTableSeeder extends Seeder
                 ]
             ],
 
+                [
+                'group_name' => 'Lead',
+                'permissions' => [
+                    'lead.list',
+                ]
+                ],
+            
+                [
+                    'group_name' => 'Salary',
+                    'permissions' => [
+                        'salary.list',
+                    ]
+                    ],
+
+                    [
+                'group_name' => 'Campaign',
+                'permissions' => [
+                    'campaign.list',
+                ]
+                ],
+
+                [
+                    'group_name' => 'Department',
+                    'permissions' => [
+                        'department.list',
+                    ]
+                    ],  
+                    [
+                        'group_name' => 'Designation',
+                        'permissions' => [
+                            'designation.list',
+                        ]
+                        ],       
+                        [
+                            'group_name' => 'Employee',
+                            'permissions' => [
+                                'employee.list',
+                            ]
+                            ],
+                            [
+                                'group_name' => 'Attendance',
+                                'permissions' => [
+                                    'attendance.list',
+                                ]
+                                ],
         ];
         // Do same for the admin guard for tutorial purposes
 
