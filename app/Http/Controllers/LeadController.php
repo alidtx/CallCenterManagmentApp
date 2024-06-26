@@ -15,7 +15,12 @@ class LeadController extends Controller
     
     public function index()
     {
-     $data['leads']=lead::get();  
+      
+     if(auth::user()->user_type=='admin')  {
+        $data['leads']=lead::orderby('id', 'DESC')->paginate(10);
+     }else{
+        $data['leads']=lead::where('user_id',auth::user()->id)->orderby('id', 'DESC')->paginate(10);
+     } 
      return view('backend.lead.list', $data);
     }
 
@@ -46,7 +51,7 @@ class LeadController extends Controller
 
     public function leadSubmissionForm() 
     {      
-        $data['campaigns']=Campaign::get();
+    $data['campaigns']=Campaign::get();
     return view('backend.lead.submission_form', $data);
     }
  

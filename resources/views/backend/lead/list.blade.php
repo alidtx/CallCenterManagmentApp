@@ -17,6 +17,7 @@
                             <th>Email</th>
                             <th>business Name</th>
                             <th>Credit Score</th>
+                            <th>Submmision Date</th>
                             <th width="10%">Actions</th>
                         </tr>
                     </thead>
@@ -28,11 +29,13 @@
                               <td>{{$lead->email}}</td>
                               <td>{{$lead->business_name}}</td>
                               <td>{{$lead->credit_score}}</td>
+                              <td>{{$lead->created_at}}</td>
                               <td>
                                 <a href="{{route('lead.view',  $lead->id)}}"><Button class="btn btn-primary btn-sm">View</Button></a>
                               </td>
                           </tr>
                         @endforeach
+                        @include('layouts.table-footer', ['linkData' => $leads])
                     </tbody>
                 </table>
             </div>

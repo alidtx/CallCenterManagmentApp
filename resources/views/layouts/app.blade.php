@@ -102,7 +102,7 @@
 
                             </span>
                             <span
-                                class="app-brand-text demo menu-text fw-bold">{{ $project_name ?? 'Event Ma...' }}</span>
+                                class="app-brand-text demo menu-text fw-bold">{{ $project_name ?? 'ccms...' }}</span>
                         @endif
                     </a>
 

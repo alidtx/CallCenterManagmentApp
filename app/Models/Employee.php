@@ -11,4 +11,9 @@ class Employee extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function leaves() {
+        return $this->hasMany(Leave::class);
+    }
+
 }

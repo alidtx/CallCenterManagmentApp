@@ -12,6 +12,8 @@ use App\Http\Controllers\LeadController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\LeaveController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -97,7 +99,7 @@ Route::group(['middleware' => ['auth']], function () {;
         Route::get('add', [CampaignController::class,'create'])->name('campaign.add');
         Route::get('add/{id}', [CampaignController::class,'create'])->name('campaign.addProcess');
         Route::post('store', [CampaignController::class,'store'])->name('campaign.store');
-     Route::get('status/{status}/{id}', [CampaignController::class,'status'])->name('campaign.status');
+       Route::get('status/{status}/{id}', [CampaignController::class,'status'])->name('campaign.status');
         
     });
 
@@ -118,6 +120,16 @@ Route::group(['middleware' => ['auth']], function () {;
         Route::post('reason_late_in', [AttendanceController::class,'ReasonLetIn'])->name('attendance.reason_late_in');
     });
   
+
+    route::prefix('leave')->group(function(){
+
+        Route::get('list', [LeaveController::class,'index'])->name('leave.list');
+        Route::get('add', [LeaveController::class,'create'])->name('leave.add');
+        Route::post('store', [LeaveController::class,'store'])->name('leave.store');
+        Route::get('pending_application', [LeaveController::class,'pendingApplication'])->name('pending_application.store');
+        Route::get('status/{status}/{id}', [LeaveController::class,'status'])->name('leave.status');
+        
+    });
 
     
 

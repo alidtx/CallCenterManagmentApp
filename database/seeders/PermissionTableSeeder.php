@@ -96,6 +96,21 @@ class PermissionTableSeeder extends Seeder
                                     'attendance.list',
                                 ]
                                 ],
+                                [
+                                    'group_name' => 'Late Attend',
+                                    'permissions' => [
+                                        'attendance.late_attend',
+                                    ]
+                                    ],
+                                    [
+                                        'group_name' => 'Apply for Leave',
+                                        'permissions' => [
+                                            'leave.add',
+                                        ]
+                                        ],
+    
+
+                                    
         ];
         // Do same for the admin guard for tutorial purposes
 

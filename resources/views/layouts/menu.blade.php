@@ -187,7 +187,43 @@
                 </li>
             </ul>
         @endcan
+
+        @can('attendance.late_attend')
+        
+        <ul class="menu-sub">
+            <li class="menu-item {{ Route::is('attendance.*') ? 'active ' : '' }}">
+                <a href="{{ route('attendance.late_attend') }}" class="menu-link">
+                    <div data-i18n="Late In">Late In</div>
+                </a>
+            </li>
+        </ul>
+    @endcan
+
     </li>
 @endif
+
+
+@if (Auth::user()->hasAnyPermission(['leave.add']))
+    <li class="menu-item {{ Route::is('leave.*') ? 'active open' : '' }}">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons ti ti-settings"></i>
+            <div data-i18n="Apply For Leave">Apply For Leave</div>
+        </a>
+        @can('leave.add')
+        
+            <ul class="menu-sub">
+                <li class="menu-item {{ Route::is('leave.*') ? 'active ' : '' }}">
+                    <a href="{{ route('leave.add') }}" class="menu-link">
+                        <div data-i18n="Apply for Leave">Apply For Leave</div>
+                    </a>
+                </li>
+                
+            </ul>
+        @endcan
+    </li>
+@endif
+
+
+
 
 </ul>
