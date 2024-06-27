@@ -20,6 +20,7 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Employee Unique Identifier</th>
                             <th width="20%">Actions</th>
                         </tr>
                     </thead>
@@ -28,6 +29,7 @@
                               <tr>
                               <td>{{$loop->iteration}}</td>
                               <td>{{$employee->name}}</td>
+                              <td>{{$employee->employeeUniqueId}}</td>
                               <td>
                                 <a href="{{route('employee.add')}}/{{ $employee->id }}"><Button class="btn btn-primary btn-sm">Edit</Button></a>
                                 @if ($employee->status==1)
@@ -38,6 +40,7 @@
                             @endif 
                           </tr>
                         @endforeach
+                        @include('layouts.table-footer', ['linkData' => $employees])
                     </tbody>
                 </table>
             </div>

@@ -12,7 +12,7 @@
                     <tbody>
                         <tr>
                             <td><strong>Sold By</strong></td>
-                            <td>{{ $lead->user_name->name }}</td>
+                            <td>{{ $lead->employee->name }}</td>
                         </tr>
                        
                         <tr>
@@ -48,7 +48,7 @@
 
                         <tr>
                             <td><strong>Campaign</strong></td>
-                            <td>{{ $lead->campaign_id }}</td>
+                            <td>{{ $lead->campaign->name }}</td>
                         </tr>
                     </tbody>
                 </table>

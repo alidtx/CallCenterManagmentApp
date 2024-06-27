@@ -14,104 +14,104 @@ class PermissionTableSeeder extends Seeder
 
 {
 
-    public function run()
-    {
+public function run()
+{
 
-        $permissions = [
+$permissions = [
 
-            [
-                'group_name' => 'dashboard',
-                'permissions' => [
-                    'dashboard.view',
-                ]
-            ],
-            [
-                'group_name' => 'User',
-                'permissions' => [
-                    'User-create',
-                    'User-view',
-                    'User-edit',
-                    'User-delete',
-                ]
-            ],
-            [
-                'group_name' => 'role',
-                'permissions' => [
-                    // role Permissions
-                    'role-list',
-                    'role-create',
-                    'role-edit',
-                    'role-delete',
-                ]
-            ],
-            [
-                'group_name' => 'settigs',
-                'permissions' => [
-                    'settings-create'
-                ]
-            ],
+[
+'group_name' => 'dashboard',
+'permissions' => [
+'dashboard.view',
+]
+],
+[
+'group_name' => 'User',
+'permissions' => [
+'User-create',
+'User-view',
+'User-edit',
+'User-delete',
+]
+],
+[
+'group_name' => 'role',
+'permissions' => [
+// role Permissions
+'role-list',
+'role-create',
+'role-edit',
+'role-delete',
+]
+],
+[
+'group_name' => 'settigs',
+'permissions' => [
+'settings-create'
+]
+],
 
-                [
-                'group_name' => 'Lead',
-                'permissions' => [
-                    'lead.list',
-                ]
-                ],
-            
-                [
-                    'group_name' => 'Salary',
-                    'permissions' => [
-                        'salary.list',
-                    ]
-                    ],
+[
+'group_name' => 'Lead',
+'permissions' => [
+'lead.list',
+]
+],
 
-                    [
-                'group_name' => 'Campaign',
-                'permissions' => [
-                    'campaign.list',
-                ]
-                ],
+[
+'group_name' => 'Salary',
+'permissions' => [
+'salary.list',
+]
+],
 
-                [
-                    'group_name' => 'Department',
-                    'permissions' => [
-                        'department.list',
-                    ]
-                    ],  
-                    [
-                        'group_name' => 'Designation',
-                        'permissions' => [
-                            'designation.list',
-                        ]
-                        ],       
-                        [
-                            'group_name' => 'Employee',
-                            'permissions' => [
-                                'employee.list',
-                            ]
-                            ],
-                            [
-                                'group_name' => 'Attendance',
-                                'permissions' => [
-                                    'attendance.list',
-                                ]
-                                ],
-                                [
-                                    'group_name' => 'Late Attend',
-                                    'permissions' => [
-                                        'attendance.late_attend',
-                                    ]
-                                    ],
-                                    [
-                                        'group_name' => 'Apply for Leave',
-                                        'permissions' => [
-                                            'leave.add',
-                                        ]
-                                        ],
-    
+[
+'group_name' => 'Campaign',
+'permissions' => [
+'campaign.list',
+]
+],
+
+[
+'group_name' => 'Department',
+'permissions' => [
+'department.list',
+]
+],  
+[
+'group_name' => 'Designation',
+'permissions' => [
+'designation.list',
+]
+],       
+[
+'group_name' => 'Employee',
+'permissions' => [
+'employee.list',
+]
+],
+[
+'group_name' => 'Attendance',
+'permissions' => [
+'attendance.list',
+]
+],
+[
+'group_name' => 'Late Attend',
+'permissions' => [
+'attendance.late_attend',
+]
+],
+[
+'group_name' => 'Apply for Leave',
+'permissions' => [
+'leave.add',
+]
+],
+
 
                                     
-        ];
+];
         // Do same for the admin guard for tutorial purposes
 
         $roleSuperAdmin = Role::firstOrCreate([

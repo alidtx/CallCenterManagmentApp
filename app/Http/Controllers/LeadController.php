@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\LeadRequest;
 use App\Models\Campaign;
+use App\Models\Employee;
+use App\Models\UserEmpWiseLead;
 use Illuminate\Support\Facades\Auth;
 use PDF;
 use Illuminate\Support\Facades\Validator;
@@ -17,16 +19,19 @@ class LeadController extends Controller
     {
       
      if(auth::user()->user_type=='admin')  {
-        $data['leads']=lead::orderby('id', 'DESC')->paginate(10);
+        // $data['leads']=lead::with('employee')->orderby('id', 'DESC')->paginate(10);
      }else{
-        $data['leads']=lead::where('user_id',auth::user()->id)->orderby('id', 'DESC')->paginate(10);
+        // $data['leads']=lead::with('employee')->where('user_id',auth::user()->id)->orderby('id', 'DESC')->paginate(10);
      } 
+
+     $data['employee']=lead::with('users')->get();
+     dd($data['employee']);
      return view('backend.lead.list', $data);
     }
 
 
     public function view($id) {
-        $lead = Lead::with('user_name')->find($id);
+        $lead = Lead::with('employee', 'campaign')->find($id);
         return view('backend.lead.view', compact('lead'));
     }
     
@@ -51,7 +56,8 @@ class LeadController extends Controller
 
     public function leadSubmissionForm() 
     {      
-    $data['campaigns']=Campaign::get();
+    $data['campaigns']=Campaign::where('status', '1')->orderby('id', 'DESC')->get();
+    $data['employees']=Employee::where('status', '1')->orderby('id', 'DESC')->get();
     return view('backend.lead.submission_form', $data);
     }
  
@@ -68,7 +74,9 @@ class LeadController extends Controller
             'credit_score' => 'required|numeric',
             'phone' => 'required|numeric',
             'campaign_id' => 'required',
+            'employee_id' => 'required',
             'isDnc' => 'required',
+            
          ];
 
          $message=[
@@ -83,7 +91,9 @@ class LeadController extends Controller
             'phone.required'=>'Please enter phone number',
             'phone.numeric'=>'Phone must be a numeric!!',
             'campaign_id.required'=>'Please select campaign name',
+            'employee_id.required'=>'Please select your name!',
             'isDnc.required'=>'Please tab yes or no',
+            
          ];
 
         $validator = Validator::make($request->all(), $rules,  $message);
@@ -99,10 +109,14 @@ class LeadController extends Controller
             $model->looking_amount=$request->looking_amount;
             $model->credit_score=$request->credit_score;
             $model->phone=$request->phone;
-            $model->campaign_id=$request->campaign_id;
-            $model->user_id=auth::user()->id;
             $model->is_dnc=$request->isDnc;
             $model->save();
+            $data=new UserEmpWiseLead(); 
+            $data->user_id=auth::user()->id;   
+            $data->employee_id=$request->employee_id;   
+            $data->campaign_id=$request->campaign_id;   
+            $data->lead_id=$model->id;
+            $data->save();
         }
     }
 

@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->boolean('status')->default(1);
-            $table->timestamps();
+            $table->id(); 
+            $table->string('name', 50);  
+            $table->string('employeeUniqueId', 10)->unique();  
+            $table->boolean('status')->default(1);  
+            $table->timestamps(); 
+            $table->index('name');  // Indexing name for faster search
         });
     }
 

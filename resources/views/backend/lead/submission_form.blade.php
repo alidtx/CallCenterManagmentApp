@@ -94,17 +94,18 @@ body{
                         <input type="email" class="form-control " name="email" id="email" placeholder="Email Address"> 
                         <span class="msg_errors  msg_email"></span>
                     </div>
-                    <div class=" col-sm-7">
-                    <div class="form-group ">
+
+                    <div class="form-group  col-sm-6">
                         <label>Looking Amount<small style="color: brown">*</small></label>
                         <input type="text" class="form-control " name="looking_amount" id="looking_amount" placeholder="Looking Amount"> 
                         <span class="msg_errors msg_looking_amount"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-sm-6">
                         <label>Credit Score<small style="color: brown">*</small></label>
                         <input type="text" class="form-control " name="credit_score" id="credit_score" placeholder="Credit Score"> 
                         <span class="msg_errors msg_credit_score"></span>
                     </div>
+                    <div class=" col-sm-7">
                     <div class="form-group">
                         <label>Phone<small style="color: brown">*</small></label>
                         <input type="text" class="form-control " name="phone" id="phone" placeholder="Phone Number"> 
@@ -121,6 +122,16 @@ body{
                          <span class="msg_errors msg_campaign_id"></span>
                     </div>
 
+                    <div class="form-group">
+                        <label>Your Name<small style="color: brown">*</small></label>
+                         <select name="employee_id" id="employee_id" class="form-control"> 
+                              <option value="">----Select Your Name----</option>
+                               @foreach ($employees as $employees )
+                               <option value="{{ $employees->id }}">{{ $employees->name."($employees->employeeUniqueId)" }}</option>
+                               @endforeach  
+                         </select>
+                         <span class="msg_errors msg_employee_id"></span>
+                    </div>
                     <div class="form-group">
                         <label>Is Dnc?<small style="color: brown">*</small></label>
 

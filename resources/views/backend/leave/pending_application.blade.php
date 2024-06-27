@@ -15,22 +15,18 @@
                             <th width="5%">#</th>
                             <th width="10%">Employee Name</th>
                             <th width="10%">Login Date</th>
-                            <th width="10%">Login Date</th>
-                            <th width="8%">Login Status</th>
-                            <th width="10%">Reason</th>
+                            <th width="10%">Login Time</th>
                             <th width="10%">Actions</th>
                          
                         </tr>
                     </thead>
                     <tbody> 
-                        @foreach ($pendingApplcations as $pendingApplcation)
+                        @foreach ($pendingLeaveApplications as $pendingLeaveApplication)
                               <tr>
                               <td>{{$loop->iteration}}</td>
-                              <td>{{$pendingApplcation->employee->name}}</td>
-                              <td>{{$pendingApplcation->login_date}}</td> 
-                              <td>{{$pendingApplcation->login_time}}</td> 
-                              <td>{{$pendingApplcation->login_status}}</td> 
-                              <td>{{$pendingApplcation->reason_late_in}}</td> 
+                              <td>{{$pendingLeaveApplication->employee->name}}</td>
+                              <td>{{$pendingLeaveApplication->login_date}}</td> 
+                              <td>{{$pendingLeaveApplication->login_time}}</td> 
                               <td>
                                 <a href=""><button type="button" class="btn btn-primary btn-sm">Apply Now</button></a>
                               </td>

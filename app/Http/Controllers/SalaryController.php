@@ -17,6 +17,7 @@ class SalaryController extends Controller
     public function index()
     {
      $data['salaries']=Salary::with('employee', 'designation','department')->get();  
+      // dd($data['salaries']);
      return view('backend.salary.list', $data);
     }
 

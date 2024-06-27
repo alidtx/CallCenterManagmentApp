@@ -33,8 +33,9 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::group(['middleware' => ['auth']], function () {;
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
@@ -91,6 +92,8 @@ Route::group(['middleware' => ['auth']], function () {;
         Route::get('download', [LeadController::class,'download'])->name('lead.download');
         Route::get('submission_form', [LeadController::class,'leadSubmissionForm'])->name('lead.submission_form');
         Route::post('store', [LeadController::class,'store'])->name('lead.store');
+        Route::post('employee_wise_lead_sum', [LeadController::class,'employeeWiseLeadSum'])->name('lead.employee_wise_lead_sum');
+
     });
 
     route::prefix('campaign')->group(function(){

@@ -28,6 +28,7 @@
                         </tr>
                     </thead>
                     <tbody> 
+                        @if (isset($salaries))
                         @foreach ($salaries as $salary)
                               <tr>
                               <td>{{$loop->iteration}}</td>
@@ -45,6 +46,7 @@
                             @endif 
                           </tr>
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
-
+use App\Models\Lead;
 class HomeController extends Controller
 {
     /**
@@ -32,6 +32,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+    
         return view('home');
     }
 
@@ -39,7 +40,6 @@ class HomeController extends Controller
     {
 
         $fourWeeksAgo = Carbon::now()->subWeeks(4);
-
         $weeklyOrders = DB::table('orders')
             ->select(DB::raw('YEAR(created_at) as year, WEEK(created_at) as week'), DB::raw('COUNT(*) as total_orders'))
             ->where('created_at', '>=', $fourWeeksAgo)

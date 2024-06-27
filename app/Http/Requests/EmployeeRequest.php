@@ -23,6 +23,15 @@ class EmployeeRequest extends FormRequest
     {
         return [
               'name'=>'required',
+              'employeeUniqueId'=>'unique',
         ];
     }
+
+   public function messages()
+   {
+        return[
+              'employeeUniqueId.unique'=>'Employee id must be unique!'
+        ];
+   }
+
 }

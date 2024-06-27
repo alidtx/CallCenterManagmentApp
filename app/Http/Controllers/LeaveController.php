@@ -25,16 +25,12 @@ class LeaveController extends Controller
             ->orderby('id','DESC')
             ->paginate(10);
            } 
-        
         return view('backend.leave.list', $data);
     }
 
     public function pendingApplication() 
     {
-        $data['pendingApplcations'] = Attendance::where('login_status', 'late')->with('employee')
-        ->orderby('id','DESC')
-        ->get();
-      
+        $data['pendingLeaveApplications'] = Attendance::with('employee')->get();
         return view('backend.leave.pending_application', $data);
     }
     

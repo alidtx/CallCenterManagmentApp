@@ -20,9 +20,7 @@ return new class extends Migration
             $table->decimal('looking_amount', 8,2); 
             $table->string('credit_score'); 
             $table->string('phone', 11); 
-            $table->integer('campaign_id'); 
             $table->integer('is_dnc');  
-            $table->integer('user_id');  
             $table->string('status')->default(1);  
             $table->timestamps();
         });
