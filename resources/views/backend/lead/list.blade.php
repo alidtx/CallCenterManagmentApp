@@ -26,7 +26,11 @@
                         @foreach ($leads as $lead)
                               <tr>
                               <td>{{$loop->iteration}}</td>
-                              <td>{{$lead->employee->name}}</td>
+                              <td>
+                                @foreach ($lead->employees as $employee)
+                                    {{ $employee->name }}@if (!$loop->last), @endif
+                                @endforeach
+                             </td>
                               <td>{{$lead->first_name}} {{$lead->last_name}} </td>
                               <td>{{$lead->looking_amount}}</td>
                               <td>{{$lead->phone}}</td>

@@ -19,19 +19,18 @@ class LeadController extends Controller
     {
       
      if(auth::user()->user_type=='admin')  {
-        // $data['leads']=lead::with('employee')->orderby('id', 'DESC')->paginate(10);
+        $data['leads']=lead::with('employees')->orderby('id', 'DESC')->paginate(10);
      }else{
-        // $data['leads']=lead::with('employee')->where('user_id',auth::user()->id)->orderby('id', 'DESC')->paginate(10);
+        $data['leads']=lead::with('employees')->where('user_id',auth::user()->id)->orderby('id', 'DESC')->paginate(10);
+
      } 
 
-     $data['employee']=lead::with('users')->get();
-     dd($data['employee']);
      return view('backend.lead.list', $data);
     }
 
 
     public function view($id) {
-        $lead = Lead::with('employee', 'campaign')->find($id);
+        $lead = Lead::with('employees', 'campaigns')->find($id);
         return view('backend.lead.view', compact('lead'));
     }
     

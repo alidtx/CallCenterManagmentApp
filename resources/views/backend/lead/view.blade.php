@@ -12,7 +12,11 @@
                     <tbody>
                         <tr>
                             <td><strong>Sold By</strong></td>
-                            <td>{{ $lead->employee->name }}</td>
+                            <td>
+                                @foreach ($lead->employees as $employee)
+                                    {{ $employee->name }}@if (!$loop->last), @endif
+                                @endforeach
+                             </td>
                         </tr>
                        
                         <tr>
@@ -48,7 +52,11 @@
 
                         <tr>
                             <td><strong>Campaign</strong></td>
-                            <td>{{ $lead->campaign->name }}</td>
+                            <td>
+                                @foreach ($lead->campaigns as $campaign)
+                                    {{ $campaign->name }}@if (!$loop->last), @endif
+                                @endforeach
+                             </td>
                         </tr>
                     </tbody>
                 </table>
