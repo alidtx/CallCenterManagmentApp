@@ -70,6 +70,27 @@
                 </li>
             </ul>
         @endcan
+
+        @can('per_lead.list')
+        
+            <ul class="menu-sub">
+                <li class="menu-item {{ Route::is('per_lead.*') ? 'active ' : '' }}">
+                    <a href="{{ route('per_lead.list') }}" class="menu-link">
+                        <div data-i18n="Per Lead Price">Per Lead Price</div>
+                    </a>
+                </li>
+            </ul>
+        @endcan
+        @can('lead_offer.list')
+        
+        <ul class="menu-sub">
+            <li class="menu-item {{ Route::is('lead_offer.*') ? 'active ' : '' }}">
+                <a href="{{ route('lead_offer.list') }}" class="menu-link">
+                    <div data-i18n="Offer">Offer</div>
+                </a>
+            </li>
+        </ul>
+    @endcan
     </li>
 @endif
 
@@ -222,8 +243,4 @@
         @endcan
     </li>
 @endif
-
-
-
-
 </ul>

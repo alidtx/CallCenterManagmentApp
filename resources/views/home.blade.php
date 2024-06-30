@@ -2,22 +2,27 @@
 @section('title', 'Dashboard')
     
 @section('content')
+
+<style>
+   
+</style>
 <div class="container-fluid py-4">
     <div class="row">
+
       <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
         <div class="card">
           <div class="card-body p-3">
             <div class="row">
-              <div class="col-8">
+              <div class="col-9">
                 <div class="numbers">
-                  <p class="text-sm mb-0 text-capitalize font-weight-bold">Daily Leads</p>
+                  <p class="text-sm mb-0 text-capitalize font-weight-bold">Daily Perfomance</p>
                   <h5 class="font-weight-bolder mb-0">
-                    $53,000
-                    <span class="text-success text-sm font-weight-bolder">+55%</span>
+                  
+                     {{$totalDailyUsersLeads}}/<span class="text-success text-center text-sm font-weight-bolder">{{ $dailyPercentage }}%</span>
                   </h5>
                 </div>
               </div>
-              <div class="col-4 text-end">
+              <div class="col-3 text-end">
                 <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
                   <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
                 </div>
@@ -26,20 +31,20 @@
           </div>
         </div>
       </div>
+
       <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
         <div class="card">
           <div class="card-body p-3">
             <div class="row">
-              <div class="col-8">
+              <div class="col-9">
                 <div class="numbers">
-                  <p class="text-sm mb-0 text-capitalize font-weight-bold">Weekly Leads</p>
+                  <p class="text-sm mb-0 text-capitalize font-weight-bold">Weekly Perfomance</p>
                   <h5 class="font-weight-bolder mb-0">
-                    2,300
-                    <span class="text-success text-sm font-weight-bolder">+3%</span>
+                    {{ $TotalUserLeads }}/<span class="text-success text-sm font-weight-bolder">{{ $weeklyPercentage }}%</span>
                   </h5>
                 </div>
               </div>
-              <div class="col-4 text-end">
+              <div class="col-3 text-end">
                 <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
                   <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
                 </div>
@@ -52,16 +57,15 @@
         <div class="card">
           <div class="card-body p-3">
             <div class="row">
-              <div class="col-8">
+              <div class="col-9">
                 <div class="numbers">
-                  <p class="text-sm mb-0 text-capitalize font-weight-bold">Monthly Leads</p>
+                  <p class="text-sm mb-0 text-capitalize font-weight-bold">Monthly Perfomance</p>
                   <h5 class="font-weight-bolder mb-0">
-                    +3,462
-                    <span class="text-danger text-sm font-weight-bolder">-2%</span>
+                    {{ $monthlyTotalUserLeads }}/<span class="text-danger text-sm font-weight-bolder">{{ $monthlyPercentage }}%</span>
                   </h5>
                 </div>
               </div>
-              <div class="col-4 text-end">
+              <div class="col-3 text-end">
                 <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
                   <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
                 </div>
@@ -74,16 +78,16 @@
         <div class="card">
           <div class="card-body p-3">
             <div class="row">
-              <div class="col-8">
+              <div class="col-9">
                 <div class="numbers">
                   <p class="text-sm mb-0 text-capitalize font-weight-bold">Monthly Rank</p>
                   <h5 class="font-weight-bolder mb-0">
-                    $103,430
-                    <span class="text-success text-sm font-weight-bolder">+5%</span>
+                    {{ $rank }}
+                    <span class="text-success text-sm font-weight-bolder">Position</span>
                   </h5>
                 </div>
               </div>
-              <div class="col-4 text-end">
+              <div class="col-3 text-end">
                 <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
                   <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
                 </div>

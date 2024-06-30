@@ -107,6 +107,9 @@ class LeadController extends Controller
             $model->email=$request->email;
             $model->looking_amount=$request->looking_amount;
             $model->credit_score=$request->credit_score;
+            $model->user_id=auth::user()->id;   
+            $model->employee_id=$request->employee_id;   
+            $model->campaign_id=$request->campaign_id;   
             $model->phone=$request->phone;
             $model->is_dnc=$request->isDnc;
             $model->save();

@@ -21,8 +21,19 @@ return new class extends Migration
             $table->string('credit_score'); 
             $table->string('phone', 11); 
             $table->integer('is_dnc');  
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('campaign_id');  
             $table->string('status')->default(1);  
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
+
+            $table->index('user_id'); 
+            $table->index('employee_id'); 
+            $table->index('campaign_id');
         });
     }
 

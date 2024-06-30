@@ -108,7 +108,19 @@ $permissions = [
 'leave.add',
 ]
 ],
+[
+'group_name' => 'Per Lead',
+'permissions' => [
+'per_lead.list',
+]
+],
 
+[
+'group_name' => 'Offer',
+'permissions' => [
+'lead_offer.list',
+]
+],
 
                                     
 ];

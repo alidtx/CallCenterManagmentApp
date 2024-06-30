@@ -13,7 +13,8 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\LeaveController;
-
+use App\Http\Controllers\PerLeadController;
+use App\Http\Controllers\LeadOfferController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -93,8 +94,27 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('submission_form', [LeadController::class,'leadSubmissionForm'])->name('lead.submission_form');
         Route::post('store', [LeadController::class,'store'])->name('lead.store');
         Route::post('employee_wise_lead_sum', [LeadController::class,'employeeWiseLeadSum'])->name('lead.employee_wise_lead_sum');
-
+         
     });
+
+    route::prefix('per_lead')->group(function(){
+
+        Route::get('list', [PerLeadController::class,'index'])->name('per_lead.list');
+        Route::get('add', [PerLeadController::class,'create'])->name('per_lead.add');
+        Route::get('add/{id}', [PerLeadController::class,'create'])->name('per_lead.addProcess');
+        Route::post('store', [PerLeadController::class,'store'])->name('per_lead.store');
+        Route::get('status/{status}/{id}', [PerLeadController::class,'status'])->name('per_lead.status');
+    });
+
+    route::prefix('lead_offer')->group(function(){
+
+        Route::get('list', [LeadOfferController::class,'index'])->name('lead_offer.list');
+        Route::get('add', [LeadOfferController::class,'create'])->name('lead_offer.add');
+        Route::get('add/{id}', [LeadOfferController::class,'create'])->name('lead_offer.addProcess');
+        Route::post('store', [LeadOfferController::class,'store'])->name('lead_offer.store');
+        Route::get('status/{status}/{id}', [LeadOfferController::class,'status'])->name('lead_offer.status');
+    });
+
 
     route::prefix('campaign')->group(function(){
 
