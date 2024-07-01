@@ -15,6 +15,9 @@ return new class extends Migration
             
                 $table->id();
                 $table->decimal('amount', 8, 2); // Assuming 'amount' is a monetary value
+                $table->decimal('transportation', 8, 2); // Assuming 'amount' is a monetary value
+                $table->decimal('food', 8, 2); // Assuming 'amount' is a monetary value
+                $table->decimal('residance', 8, 2); // Assuming 'amount' is a monetary value
                 $table->unsignedBigInteger('employee_id');
                 $table->unsignedBigInteger('designation_id');
                 $table->unsignedBigInteger('department_id');

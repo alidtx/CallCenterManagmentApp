@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LeadRequest;
 use App\Models\Campaign;
 use App\Models\Employee;
+use App\Models\LeadOffer;
 use App\Models\UserEmpWiseLead;
 use Illuminate\Support\Facades\Auth;
 use PDF;
@@ -60,6 +61,13 @@ class LeadController extends Controller
     return view('backend.lead.submission_form', $data);
     }
  
+    
+    public function leadOfferId() 
+
+    {
+      $LeadOfferId=LeadOffer::where('status', 1)->first();   
+      return $LeadOfferId; 
+    }
 
     
     public function store(Request $request)
@@ -100,6 +108,8 @@ class LeadController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }else{
+             
+            if(isset($this->leadOfferId()->status) && $this->leadOfferId()->status==1) {
             $model=New lead();   
             $model->first_name=$request->first_name;
             $model->last_name=$request->last_name;
@@ -117,8 +127,30 @@ class LeadController extends Controller
             $data->user_id=auth::user()->id;   
             $data->employee_id=$request->employee_id;   
             $data->campaign_id=$request->campaign_id;   
+            $data->lead_offer_id=$this->leadOfferId()->id ? $this->leadOfferId()->id : null;   
             $data->lead_id=$model->id;
             $data->save();
+        }else{
+            $model=New lead();   
+            $model->first_name=$request->first_name;
+            $model->last_name=$request->last_name;
+            $model->business_name=$request->business_name;
+            $model->email=$request->email;
+            $model->looking_amount=$request->looking_amount;
+            $model->credit_score=$request->credit_score;
+            $model->user_id=auth::user()->id;   
+            $model->employee_id=$request->employee_id;   
+            $model->campaign_id=$request->campaign_id;   
+            $model->phone=$request->phone;
+            $model->is_dnc=$request->isDnc;
+            $model->save();
+            $data=new UserEmpWiseLead(); 
+            $data->user_id=auth::user()->id;   
+            $data->employee_id=$request->employee_id;   
+            $data->campaign_id=$request->campaign_id;     
+            $data->lead_id=$model->id;
+            $data->save();
+        }  
         }
     }
 

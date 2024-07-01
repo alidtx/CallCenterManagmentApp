@@ -20,11 +20,14 @@
                         <tr>
                             <th>#</th>
                         
-                            <th>Employee Name</th>
+                            <th >Name</th>
                             <th>Designation</th>
-                            <th>Department</th>
-                            <th>Basic Salary</th>
-                            <th width="20%">Actions</th>
+                            <th >Department</th>
+                            <th>Salary</th>
+                            <th >Transporation</th>
+                            <th>Food</th>
+                            <th >Residance</th>
+                            <th width="30%">Actions</th>
                         </tr>
                     </thead>
                     <tbody> 
@@ -36,6 +39,9 @@
                               <td>{{$salary->designation->name}}</td>
                               <td>{{$salary->department->name}}</td>
                               <td>{{$salary->amount}}</td>
+                              <td>{{$salary->transportation}}</td>
+                              <td>{{$salary->food}}</td>
+                              <td>{{$salary->residance}}</td>
                               <td>
                                 <a href="{{route('salary.add')}}/{{ $salary->id }}"><Button class="btn btn-primary btn-sm">Edit</Button></a>
                                 @if ($salary->status==1)

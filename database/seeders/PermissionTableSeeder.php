@@ -122,6 +122,13 @@ $permissions = [
 ]
 ],
 
+[
+'group_name' => 'Monthly Salary',
+'permissions' => [
+'monthly_salary.list',
+]
+],
+
                                     
 ];
         // Do same for the admin guard for tutorial purposes

@@ -9,6 +9,23 @@
     </div>
 
     <div class="form-group col-sm-4 md-3">
+        <label>Transportation<small style="color: brown">*</small></label>
+        <input type="text" class="form-control " name="transportation" id="transportation" placeholder="Transportation" value="{{ $transportation }}"> 
+        <span class="msg_errors  msg_transportation"></span>
+    </div>
+
+    <div class="form-group col-sm-4 md-3">
+        <label>Food<small style="color: brown">*</small></label>
+        <input type="text" class="form-control " name="food" id="food" placeholder="Food" value="{{ $food }}"> 
+        <span class="msg_errors  msg_food"></span>
+    </div>
+    <div class="form-group col-sm-4 md-3">
+        <label>Residance<small style="color: brown">*</small></label>
+        <input type="text" class="form-control " name="residance" id="residance" placeholder="residance" value="{{ $residance }}"> 
+        <span class="msg_errors  msg_residance"></span>
+    </div>
+
+    <div class="form-group col-sm-4 md-3">
         <label>Employee<small style="color: brown">*</small></label>
         <select name="employee_id" id="employee_id" class="form-control">
             <option value="">---Select Employee---</option>

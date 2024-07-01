@@ -64,18 +64,19 @@ class HomeController extends Controller
               ->search($currentUserId);
              if ($userRank !== false) { 
               $rank= $userRank += 1;
+          
               } 
         
           $data=[
            'totalDailyUsersLeads'=>$totalDailyUsersLeads,
-           'dailyPercentage'=>$dailyPercentage, 
+           'dailyPercentage'=>floor($dailyPercentage), 
            'TotalUserLeads'=>$TotalUserLeads, 
-           'weeklyPercentage'=>$weeklyPercentage, 
+           'weeklyPercentage'=>floor($weeklyPercentage), 
            'monthlyTotalUserLeads'=>$monthlyTotalUserLeads, 
-           'monthlyPercentage'=>$monthlyPercentage, 
+           'monthlyPercentage'=>floor($monthlyPercentage), 
            'rank'=>$rank, 
          ];
-
+        // dd($data);
         return view('home', $data);
     }
 

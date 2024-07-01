@@ -134,6 +134,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('add/{id}', [SalaryController::class,'create'])->name('salary.addProcess');
         Route::post('store', [SalaryController::class,'store'])->name('salary.store');
         Route::get('status/{status}/{id}', [SalaryController::class,'status'])->name('salary.status');
+        Route::get('monthly_salary', [SalaryController::class,'MonthlySalary'])->name('monthly_salary.list');
+        Route::get('view_payable_salary/{id}', [SalaryController::class,'viewPayableSalary'])->name('salary.view_payable_salary');
     });
 
     route::prefix('attendance')->group(function(){

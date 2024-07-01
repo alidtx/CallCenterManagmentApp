@@ -110,6 +110,17 @@
                 </li>
             </ul>
         @endcan
+
+        @can('monthly_salary.list')
+        
+            <ul class="menu-sub">
+                <li class="menu-item {{ Route::is('salary.*') ? 'active ' : '' }}">
+                    <a href="{{ route('monthly_salary.list') }}" class="menu-link">
+                        <div data-i18n="Montly Payable Salary">Montly Payable Salary</div>
+                    </a>
+                </li>
+            </ul>
+        @endcan
     </li>
 @endif
 

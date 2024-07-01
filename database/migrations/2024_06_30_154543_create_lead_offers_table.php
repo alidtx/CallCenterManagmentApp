@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('type');
             $table->decimal('amount', 8,2);
-            $table->boolean('status')->default(1); 
+            $table->boolean('status')->default(0); 
             $table->timestamps();
             $table->index('type');
         });

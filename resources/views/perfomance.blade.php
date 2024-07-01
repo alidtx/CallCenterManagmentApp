@@ -8,7 +8,7 @@
               <div class="numbers">
                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Daily Perfomance</p>
                 <h5 class="font-weight-bolder mb-0">
-                   {{$totalDailyUsersLeads}}/<span class="text-success text-center text-sm font-weight-bolder">{{ $dailyPercentage }}%</span>
+                   {{$totalDailyUsersLeads ? $totalDailyUsersLeads: 'Not Found'}}/<span class="text-success text-center text-sm font-weight-bolder">{{ $dailyPercentage ? $dailyPercentage : 'Not Found' }}%</span>
                 </h5>
               </div>
             </div>
@@ -29,7 +29,7 @@
               <div class="numbers">
                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Weekly Perfomance</p>
                 <h5 class="font-weight-bolder mb-0">
-                  {{ $TotalUserLeads }}/<span class="text-success text-sm font-weight-bolder">{{ $weeklyPercentage }}%</span>
+                  {{ $TotalUserLeads ? $TotalUserLeads: 'Not Found' }}/<span class="text-success text-sm font-weight-bolder">{{ $weeklyPercentage ? $weeklyPercentage : 'Not Found' }}%</span>
                 </h5>
               </div>
             </div>
@@ -50,7 +50,7 @@
               <div class="numbers">
                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Monthly Perfomance</p>
                 <h5 class="font-weight-bolder mb-0">
-                  {{ $monthlyTotalUserLeads }}/<span class="text-danger text-sm font-weight-bolder">{{ $monthlyPercentage }}%</span>
+                  {{ $monthlyTotalUserLeads ? $monthlyTotalUserLeads : 'Not Found'  }}/<span class="text-danger text-sm font-weight-bolder">{{ $monthlyPercentage ? $monthlyPercentage : 'Not Found' }}%</span>
                 </h5>
               </div>
             </div>
@@ -71,7 +71,7 @@
               <div class="numbers">
                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Monthly Rank</p>
                 <h5 class="font-weight-bolder mb-0">
-                  {{ $rank }}
+                  {{ $rank ? $rank : 'Not Found'  }}
                   <span class="text-success text-sm font-weight-bolder">Position</span>
                 </h5>
               </div>
