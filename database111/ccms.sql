@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2024 at 01:30 PM
+-- Generation Time: Jul 02, 2024 at 01:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -46,15 +46,11 @@ CREATE TABLE `attendances` (
 
 INSERT INTO `attendances` (`id`, `user_id`, `employee_id`, `login_date`, `login_time`, `logout_time`, `login_status`, `reason_late_in`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, '2024-06-25', '12:25:50', '12:25:50', 'late', 'illness', '2024-06-25 06:25:50', '2024-06-25 11:53:47'),
-(2, 1, 1, '2024-06-25', '10:29:28', '10:29:28', 'late', 'transportation', '2024-06-25 06:29:28', '2024-06-25 11:58:42'),
-(3, 1, 1, '2024-06-25', '12:31:13', '12:31:13', 'late', 'family_issue', '2024-06-25 06:31:13', '2024-06-27 04:37:53'),
-(4, 1, 1, '2024-06-25', '12:31:18', '12:31:18', 'late', '', '2024-06-25 06:31:18', '2024-06-25 06:31:18'),
-(5, 1, 1, '2024-06-25', '12:32:32', '12:32:32', 'normal', '', '2024-06-25 06:32:32', '2024-06-25 06:32:32'),
-(6, 1, 1, '2024-06-25', '12:32:55', '12:32:55', 'normal', '', '2024-06-25 06:32:55', '2024-06-25 06:32:55'),
-(7, 1, 1, '2024-06-25', '12:34:31', '12:34:31', 'normal', '', '2024-06-25 06:34:31', '2024-06-25 06:34:31'),
-(8, 1, 1, '2024-06-25', '12:35:22', '12:35:22', 'late', 'illness', '2024-06-25 06:35:22', '2024-06-25 11:50:16'),
-(9, 1, 1, '2024-06-25', '10:41:50', '12:41:50', 'late', '', '2024-06-25 06:41:50', '2024-06-25 06:41:50'),
-(10, 1, 1, '2024-06-25', '13:57:16', '13:57:16', 'late', '', '2024-06-25 07:57:16', '2024-06-25 07:57:16');
+(2, 1, 7, '2024-06-25', '10:29:28', '10:29:28', 'normal', 'transportation', '2024-06-25 06:29:28', '2024-06-25 11:58:42'),
+(3, 1, 6, '2024-06-25', '12:31:13', '12:31:13', 'late', 'family_issue', '2024-06-25 06:31:13', '2024-06-27 04:37:53'),
+(11, 1, 6, '2024-06-25', '12:31:13', '12:31:13', 'late', 'family_issue', '2024-06-25 06:31:13', '2024-06-27 04:37:53'),
+(12, 1, 6, '2024-06-25', '12:31:13', '12:31:13', 'late', 'family_issue', '2024-06-25 06:31:13', '2024-06-27 04:37:53'),
+(13, 1, 6, '2024-06-25', '12:31:13', '12:31:13', 'late', 'family_issue', '2024-06-25 06:31:13', '2024-06-27 04:37:53');
 
 -- --------------------------------------------------------
 
@@ -209,6 +205,9 @@ CREATE TABLE `leads` (
   `credit_score` varchar(255) NOT NULL,
   `phone` varchar(11) NOT NULL,
   `is_dnc` int(11) NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `employee_id` bigint(20) UNSIGNED NOT NULL,
+  `campaign_id` bigint(20) UNSIGNED NOT NULL,
   `status` varchar(255) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -218,8 +217,35 @@ CREATE TABLE `leads` (
 -- Dumping data for table `leads`
 --
 
-INSERT INTO `leads` (`id`, `first_name`, `last_name`, `email`, `business_name`, `looking_amount`, `credit_score`, `phone`, `is_dnc`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'John', 'karnes', 'alirimon5@gmail.com', 'Ignite Capital', 12000.00, '550', '01638912320', 0, '1', '2024-06-27 10:34:47', '2024-06-27 10:34:47');
+INSERT INTO `leads` (`id`, `first_name`, `last_name`, `email`, `business_name`, `looking_amount`, `credit_score`, `phone`, `is_dnc`, `user_id`, `employee_id`, `campaign_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Kevin', 'kar', 'alirimon5@gmail.com', 'Ignite Capital', 12000.00, '550', '01638912320', 0, 1, 7, 1, '1', '2024-07-01 11:49:24', '2024-07-01 11:49:24'),
+(2, 'Devid', 'De', 'alirimon5@gmail.com', 'Ignite Capital', 12000.00, '550', '01638912320', 0, 1, 6, 1, '1', '2024-07-01 11:49:52', '2024-07-01 11:49:52'),
+(3, 'John', 'JO', 'alirimon5@gmail.com', 'Ignite Capital', 12000.00, '550', '01638912320', 1, 1, 1, 1, '1', '2024-07-01 11:50:16', '2024-07-01 11:50:16'),
+(4, 'John', 'JO', 'alirimon5@gmail.com', 'Ignite Capital', 12000.00, '550', '01638912320', 1, 1, 1, 1, '1', '2024-07-01 11:50:16', '2024-07-01 11:50:16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lead_offers`
+--
+
+CREATE TABLE `lead_offers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `type` bigint(20) UNSIGNED NOT NULL,
+  `amount` decimal(8,2) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `lead_offers`
+--
+
+INSERT INTO `lead_offers` (`id`, `type`, `amount`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 100.00, 0, '2024-06-30 10:47:30', '2024-07-01 09:24:26'),
+(2, 2, 200.00, 0, '2024-06-30 10:49:42', '2024-07-01 09:24:23'),
+(3, 3, 300.00, 1, '2024-06-30 10:49:53', '2024-07-02 10:05:00');
 
 -- --------------------------------------------------------
 
@@ -290,7 +316,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (25, '2024_06_26_102426_create_leaves_table', 9),
 (26, '2024_06_20_095414_create_employees_table', 10),
 (28, '2024_06_27_153436_create_user_emp_wise_leads_table', 11),
-(29, '2024_06_23_105641_create_leads_table', 12);
+(30, '2024_06_23_105641_create_leads_table', 12),
+(31, '2024_06_30_141248_create_per_leads_table', 13),
+(33, '2024_06_30_154543_create_lead_offers_table', 14),
+(34, '2024_06_24_144441_create_salaries_table', 15);
 
 -- --------------------------------------------------------
 
@@ -321,7 +350,8 @@ CREATE TABLE `model_has_roles` (
 --
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
-(1, 'App\\Models\\User', 1);
+(1, 'App\\Models\\User', 1),
+(1, 'App\\Models\\User', 2);
 
 -- --------------------------------------------------------
 
@@ -339,6 +369,13 @@ CREATE TABLE `notifications` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
+('64999fa6-cfa4-45a5-bb8e-30c696d245af', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 2, '{\"message\":\"Your account has been created successfully. Please change your password.\",\"title\":\"Account Created\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/change-password\"}', '2024-06-30 07:55:04', '2024-06-30 07:12:01', '2024-06-30 07:55:04');
 
 -- --------------------------------------------------------
 
@@ -403,7 +440,10 @@ INSERT INTO `permissions` (`id`, `name`, `group_name`, `guard_name`, `created_at
 (16, 'employee.list', 'Employee', 'web', '2024-06-25 03:56:55', '2024-06-25 03:56:55', NULL),
 (17, 'attendance.list', 'Attendance', 'web', '2024-06-25 09:00:49', '2024-06-25 09:00:49', NULL),
 (18, 'attendance.late_attend', 'Late Attend', 'web', '2024-06-26 03:42:04', '2024-06-26 03:42:04', NULL),
-(19, 'leave.add', 'Apply for Leave', 'web', '2024-06-26 11:35:54', '2024-06-26 11:35:54', NULL);
+(19, 'leave.add', 'Apply for Leave', 'web', '2024-06-26 11:35:54', '2024-06-26 11:35:54', NULL),
+(20, 'per_lead.list', 'Per Lead', 'web', '2024-06-30 09:36:49', '2024-06-30 09:36:49', NULL),
+(21, 'lead_offer.list', 'Offer', 'web', '2024-06-30 10:53:16', '2024-06-30 10:53:16', NULL),
+(22, 'monthly_salary.list', 'Monthly Salary', 'web', '2024-07-01 08:18:13', '2024-07-01 08:18:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -424,6 +464,26 @@ CREATE TABLE `personal_access_tokens` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `per_leads`
+--
+
+CREATE TABLE `per_leads` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `amount` decimal(8,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `per_leads`
+--
+
+INSERT INTO `per_leads` (`id`, `amount`, `created_at`, `updated_at`) VALUES
+(1, 100.00, '2024-06-30 09:26:54', '2024-06-30 09:26:54');
 
 -- --------------------------------------------------------
 
@@ -481,7 +541,10 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (16, 1),
 (17, 1),
 (18, 1),
-(19, 1);
+(19, 1),
+(20, 1),
+(21, 1),
+(22, 1);
 
 -- --------------------------------------------------------
 
@@ -491,7 +554,10 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 
 CREATE TABLE `salaries` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `amount` varchar(8) NOT NULL,
+  `amount` decimal(8,2) NOT NULL,
+  `transportation` decimal(8,2) NOT NULL,
+  `food` decimal(8,2) NOT NULL,
+  `residance` decimal(8,2) NOT NULL,
   `employee_id` bigint(20) UNSIGNED NOT NULL,
   `designation_id` bigint(20) UNSIGNED NOT NULL,
   `department_id` bigint(20) UNSIGNED NOT NULL,
@@ -504,9 +570,10 @@ CREATE TABLE `salaries` (
 -- Dumping data for table `salaries`
 --
 
-INSERT INTO `salaries` (`id`, `amount`, `employee_id`, `designation_id`, `department_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, '20000', 1, 1, 1, 1, '2024-06-27 06:30:54', '2024-06-27 06:30:54'),
-(2, '30000', 3, 1, 1, 1, '2024-06-27 06:31:08', '2024-06-27 06:31:08');
+INSERT INTO `salaries` (`id`, `amount`, `transportation`, `food`, `residance`, `employee_id`, `designation_id`, `department_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 30000.00, 1000.00, 1000.00, 5000.00, 1, 1, 1, 1, '2024-07-01 04:22:16', '2024-07-01 04:22:16'),
+(2, 40000.00, 1000.00, 1000.00, 5000.00, 7, 1, 1, 1, '2024-07-01 05:22:31', '2024-07-01 05:22:31'),
+(3, 30000.00, 1000.00, 1000.00, 5000.00, 6, 1, 1, 1, '2024-07-01 06:10:59', '2024-07-01 06:10:59');
 
 -- --------------------------------------------------------
 
@@ -549,7 +616,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `profile_image`, `email`, `phone`, `email_verified_at`, `password`, `status`, `user_type`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Ali Abu Taleb', NULL, 'admin@gmail.com', '01846699646', NULL, '$2y$10$i6RElskd7XhE42mnO8kPneXahaeh9jzvszhbGRBV4ROP01tUYwKKi', 1, 'admin', NULL, '2024-05-27 05:16:39', '2024-05-27 05:16:39', NULL);
+(1, 'Ali Abu Taleb', NULL, 'admin@gmail.com', '01846699646', NULL, '$2y$10$i6RElskd7XhE42mnO8kPneXahaeh9jzvszhbGRBV4ROP01tUYwKKi', 1, 'admin', NULL, '2024-05-27 05:16:39', '2024-05-27 05:16:39', NULL),
+(2, 'Ali Rimon', NULL, 'alirimon5@gmail.com', '01638912320', NULL, '$2y$10$.aIyvRXImXfb/8Rzs6n.mONHR9e/tOySCXxdoq51CgKnT7qZcBNY2', 1, 'admin', NULL, '2024-06-30 07:12:00', '2024-06-30 07:12:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -563,6 +631,7 @@ CREATE TABLE `user_emp_wise_leads` (
   `employee_id` bigint(20) UNSIGNED NOT NULL,
   `lead_id` bigint(20) UNSIGNED NOT NULL,
   `campaign_id` bigint(20) UNSIGNED NOT NULL,
+  `lead_offer_id` tinyint(4) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -571,8 +640,19 @@ CREATE TABLE `user_emp_wise_leads` (
 -- Dumping data for table `user_emp_wise_leads`
 --
 
-INSERT INTO `user_emp_wise_leads` (`id`, `user_id`, `employee_id`, `lead_id`, `campaign_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 7, 1, 1, '2024-06-27 10:34:47', '2024-06-27 10:34:47');
+INSERT INTO `user_emp_wise_leads` (`id`, `user_id`, `employee_id`, `lead_id`, `campaign_id`, `lead_offer_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 7, 1, 1, NULL, '2024-06-30 05:37:48', '2024-06-30 05:37:48'),
+(2, 2, 7, 3, 1, NULL, '2024-06-30 07:15:53', '2024-06-30 07:15:53'),
+(3, 2, 7, 4, 1, NULL, '2024-06-30 07:16:28', '2024-06-30 07:16:28'),
+(4, 2, 7, 5, 1, NULL, '2024-06-30 07:18:02', '2024-06-30 07:18:02'),
+(5, 1, 7, 6, 1, NULL, '2024-06-30 07:26:41', '2024-06-30 07:26:41'),
+(6, 1, 7, 7, 1, NULL, '2024-07-01 03:44:45', '2024-07-01 03:44:45'),
+(7, 1, 6, 8, 1, NULL, '2024-07-01 06:02:42', '2024-07-01 06:02:42'),
+(8, 1, 5, 9, 1, NULL, '2024-07-01 10:00:47', '2024-07-01 10:00:47'),
+(9, 1, 3, 23, 1, 3, '2024-07-01 10:03:02', '2024-07-01 10:03:02'),
+(10, 1, 7, 1, 1, 3, '2024-07-01 11:49:24', '2024-07-01 11:49:24'),
+(11, 1, 6, 2, 1, 3, '2024-07-01 11:49:52', '2024-07-01 11:49:52'),
+(12, 1, 6, 3, 1, 3, '2024-07-01 11:50:16', '2024-07-01 11:50:16');
 
 -- --------------------------------------------------------
 
@@ -673,7 +753,17 @@ ALTER TABLE `jobs`
 -- Indexes for table `leads`
 --
 ALTER TABLE `leads`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `leads_user_id_index` (`user_id`),
+  ADD KEY `leads_employee_id_index` (`employee_id`),
+  ADD KEY `leads_campaign_id_index` (`campaign_id`);
+
+--
+-- Indexes for table `lead_offers`
+--
+ALTER TABLE `lead_offers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `lead_offers_type_index` (`type`);
 
 --
 -- Indexes for table `leaves`
@@ -741,6 +831,12 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `per_leads`
+--
+ALTER TABLE `per_leads`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -759,7 +855,9 @@ ALTER TABLE `role_has_permissions`
 --
 ALTER TABLE `salaries`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `salaries_employee_id_foreign` (`employee_id`);
+  ADD KEY `salaries_employee_id_index` (`employee_id`),
+  ADD KEY `salaries_designation_id_index` (`designation_id`),
+  ADD KEY `salaries_department_id_index` (`department_id`);
 
 --
 -- Indexes for table `settings`
@@ -806,7 +904,7 @@ ALTER TABLE `user_otps`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `campaigns`
@@ -854,7 +952,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `leads`
 --
 ALTER TABLE `leads`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `lead_offers`
+--
+ALTER TABLE `lead_offers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `leaves`
@@ -866,19 +970,25 @@ ALTER TABLE `leaves`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `per_leads`
+--
+ALTER TABLE `per_leads`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -890,7 +1000,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `salaries`
 --
 ALTER TABLE `salaries`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -902,13 +1012,13 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_emp_wise_leads`
 --
 ALTER TABLE `user_emp_wise_leads`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user_notifications`
@@ -925,6 +1035,14 @@ ALTER TABLE `user_otps`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `leads`
+--
+ALTER TABLE `leads`
+  ADD CONSTRAINT `leads_campaign_id_foreign` FOREIGN KEY (`campaign_id`) REFERENCES `campaigns` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `leads_employee_id_foreign` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `leads_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `leaves`
@@ -957,6 +1075,8 @@ ALTER TABLE `role_has_permissions`
 -- Constraints for table `salaries`
 --
 ALTER TABLE `salaries`
+  ADD CONSTRAINT `salaries_department_id_foreign` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `salaries_designation_id_foreign` FOREIGN KEY (`designation_id`) REFERENCES `designations` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `salaries_employee_id_foreign` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE;
 
 --
