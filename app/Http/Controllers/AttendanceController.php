@@ -62,7 +62,6 @@ class AttendanceController extends Controller
   public function lateAttend() 
   {
     $data['lateAttends']=Attendance::where('user_id', auth::user()->id)->where('login_status','late')->get();
-     
     return view('backend.attentance.late_attend',$data);
   }
 

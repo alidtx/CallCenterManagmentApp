@@ -143,6 +143,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('store', [AttendanceController::class,'store'])->name('attendance.store');
         Route::get('late_attend', [AttendanceController::class,'lateAttend'])->name('attendance.late_attend');
         Route::post('reason_late_in', [AttendanceController::class,'ReasonLetIn'])->name('attendance.reason_late_in');
+        Route::get('deduction_summery', [AttendanceController::class,'ReasonLetIn'])->name('attendance.reason_late_in');
     });
   
 

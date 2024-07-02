@@ -35,27 +35,38 @@ class SalaryController extends Controller
      $data['perLeadRate']=DB::table('per_leads')
      ->select('amount')
      ->first();
+     $data['leadOffer']=DB::table('lead_offers')
+      ->select('type', 'amount','status')
+      ->where('status', '1')
+      ->first(); 
+      //  dd($data['leadOffer']->status);
      $data['employee_salaries'] = DB::table('salaries as s')
-    ->where('s.status', 1)
-    ->whereMonth('uewl.created_at', Carbon::now()->month)
-    ->join('user_emp_wise_leads as uewl', 's.employee_id', '=', 'uewl.employee_id')
-    ->join('employees as e', 'e.id', '=', 'uewl.employee_id')
-    ->select(
-        's.employee_id',
-        's.id',
-        's.status',
-        's.amount as employee_salary',
-        's.transportation as employee_transport',
-        's.food as employee_food',
-        's.residance as residance',
-        'uewl.created_at as date',
-        'e.name as employee_name',
-        'e.employeeUniqueId as employee_uid',
-
-        DB::raw('count(uewl.lead_id) as lead_count')
-    )
-    ->groupBy('s.employee_id', 's.amount', 's.transportation', 's.food', 's.residance', 'e.name', 'e.employeeUniqueId')
-    ->get();  
+     ->whereMonth('l.created_at', Carbon::now()->month)
+     ->select(
+         's.id as salary_id',
+         's.amount as salary_amount',
+         's.transportation as salary_transport',
+         's.food as salary_food',
+         's.residance as salary_residence', 
+         's.employee_id as employee_id',
+         'e.name as emp_name',
+         'e.employeeUniqueId as employeeUniqueId',
+         'l.first_name as first_name',
+         'l.employee_id as lemployee_id',
+         'd.name as designation_name',
+         'dpmt.name as department_name',
+         DB::raw('count(l.id) as lead_count'),
+         'attn.employee_id',
+         DB::raw("SUM(CASE WHEN attn.login_status = 'late' THEN 1 ELSE 0 END) AS late_days"),
+         DB::raw("SUM(CASE WHEN attn.login_status = 'normal' THEN 1 ELSE 0 END) AS normal_days")
+     )
+     ->join('employees as e', 'e.id', '=', 's.employee_id')
+     ->join('leads as l', 'l.employee_id', '=', 'e.id')
+     ->join('designations as d', 'd.id', '=', 's.designation_id')
+     ->join('departments as dpmt', 'dpmt.id', '=', 's.department_id')
+     ->join('attendances as attn', 'e.id', '=', 'attn.employee_id')
+     ->groupBy('s.employee_id', 'attn.employee_id')
+     ->get(); 
     //  dd($data['employee_salaries']);
      return view('backend.salary.monthly_salary',  $data);
     }
@@ -70,28 +81,35 @@ class SalaryController extends Controller
      ->where('status', 1)
      ->select('type','amount', 'status')
      ->first();
-    $data['employee_salary'] = DB::table('salaries as s')
-    ->where('s.status', 1)
-    ->where('s.id', $id)
-    ->whereMonth('uewl.created_at', Carbon::now()->month)
-    ->join('user_emp_wise_leads as uewl', 's.employee_id', '=', 'uewl.employee_id')
-    ->join('employees as e', 'e.id', '=', 'uewl.employee_id')
-    ->select(
-        's.employee_id',
-        's.id',
-        's.status',
-        's.amount as employee_salary',
-        's.transportation as employee_transport',
-        's.food as employee_food',
-        's.residance as residance',
-        'uewl.created_at as date',
-        'e.name as employee_name',
-        'e.employeeUniqueId as employee_uid',
-        DB::raw('count(uewl.lead_id) as lead_count')
-    )
-    ->groupBy('s.employee_id', 's.amount', 's.transportation', 's.food', 's.residance', 'e.name', 'e.employeeUniqueId')
-    ->first();  
-    // dd( $data['employee_salary']);
+     $data['employee_salaries'] = DB::table('salaries as s')
+     ->whereMonth('l.created_at', Carbon::now()->month)
+     ->where('s.id', $id)
+     ->select(
+         's.id as salary_id',
+         's.amount as salary_amount',
+         's.transportation as salary_transport',
+         's.food as salary_food',
+         's.residance as salary_residence', 
+         's.employee_id as employee_id',
+         'e.name as emp_name',
+         'e.employeeUniqueId as employeeUniqueId',
+         'l.first_name as first_name',
+         'l.employee_id as lemployee_id',
+         'd.name as designation_name',
+         'dpmt.name as department_name',
+         DB::raw('count(l.id) as lead_count'),
+         'attn.employee_id',
+         DB::raw("SUM(CASE WHEN attn.login_status = 'late' THEN 1 ELSE 0 END) AS late_days"),
+         DB::raw("SUM(CASE WHEN attn.login_status = 'normal' THEN 1 ELSE 0 END) AS normal_days")
+     )
+     ->join('employees as e', 'e.id', '=', 's.employee_id')
+     ->join('leads as l', 'l.employee_id', '=', 'e.id')
+     ->join('designations as d', 'd.id', '=', 's.designation_id')
+     ->join('departments as dpmt', 'dpmt.id', '=', 's.department_id')
+     ->join('attendances as attn', 'e.id', '=', 'attn.employee_id')
+     ->groupBy('s.employee_id', 'attn.employee_id')
+     ->first();
+    // dd( $data['employee_salaries']);
     return view('backend.salary.total_paybale_salary', $data);
    }
 

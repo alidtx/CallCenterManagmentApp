@@ -24,33 +24,68 @@
                             <th>Name</th>
                             <th>Basic Salary</th>
                             <th >Total Withdrawable </th>
+                         
                             <th width="17%">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                         @foreach ($employee_salaries as $employee_salary)
-                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{$employee_salary->employee_uid }}</td>
-                            <td>{{$employee_salary->employee_name }}</td>
-                            <td>{{$employee_salary->employee_salary }} TK</td>
-                           
-                              <td>
-                                {{
-                                  $employee_salary->employee_salary
-                                  +$employee_salary->employee_transport
-                                  +$employee_salary->employee_food
-                                  +$employee_salary->residance 
-                                  +($employee_salary->lead_count * $perLeadRate->amount)
-                                }} 
-                            Tk </td>
-                           <td>   
-                            <a href="{{route('salary.view_payable_salary',$employee_salary->id)}}"><Button class="btn btn-primary btn-sm">View</Button></a>
-                          </td> 
-                         </tr> 
-                         @endforeach  
-                          
-                    </tbody>
+                        @foreach ($employee_salaries as $employee_salary) 
+                          @if (isset($leadOffer->status) && $leadOffer->status>0)
+                        <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $employee_salary->employeeUniqueId }}</td>
+                        <td>{{ $employee_salary->emp_name }}</td>
+                        <td>{{ $employee_salary->salary_amount }} TK</td>
+                        <td>
+                        @php
+                            $dailySalary = $employee_salary->salary_amount / 22;
+                            $deductionPeriods = intdiv($employee_salary->late_days, 3);
+                            $deductedSalary = $dailySalary * 3 * $deductionPeriods; 
+                            $total_salary = $employee_salary->salary_amount
+                                + $employee_salary->salary_transport
+                                + $employee_salary->salary_food
+                                + $employee_salary->salary_residence
+                                + ($employee_salary->lead_count * $perLeadRate->amount)
+                                - $deductedSalary;
+                        @endphp
+                    {{ floor($total_salary+$leadOffer->amount) }} Tk
+                    </td>
+                    <td>
+                        <a href="{{ route('salary.view_payable_salary', $employee_salary->salary_id) }}">
+                            <button class="btn btn-primary btn-sm">View</button>
+                        </a>
+                    </td>
+                </tr>
+                @else
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $employee_salary->employeeUniqueId }}</td>
+                    <td>{{ $employee_salary->emp_name }}</td>
+                    <td>{{ $employee_salary->salary_amount }} TK</td>
+                    <td>
+                    @php
+                        $dailySalary = $employee_salary->salary_amount / 22;
+                        $deductionPeriods = intdiv($employee_salary->late_days, 3); 
+                        $deductedSalary = $dailySalary * 3 * $deductionPeriods; 
+                        $total_salary = $employee_salary->salary_amount
+                            + $employee_salary->salary_transport
+                            + $employee_salary->salary_food
+                            + $employee_salary->salary_residence
+                            + ($employee_salary->lead_count * $perLeadRate->amount)
+                            - $deductedSalary;
+                    @endphp
+                {{ floor($total_salary) }} Tk
+                </td>
+                <td>
+                    <a href="{{ route('salary.view_payable_salary', $employee_salary->salary_id) }}">
+                        <button class="btn btn-primary btn-sm">View</button>
+                    </a>
+                </td>
+            </tr>
+                @endif
+                   
+               @endforeach
+                </tbody>
                 </table>
             </div>
         </div>
@@ -64,11 +99,10 @@
         $("#searchInput").on("keyup", function() {
             var value = $(this).val().toLowerCase();
             $("#myTable tbody tr").filter(function() {
-                $(this).toggle($(this).find('td:first').text().toLowerCase().indexOf(value) > -1)
+                $(this).toggle($(this).find('td:nth-child(2)').text().toLowerCase().indexOf(value) > -1);
             });
         });
     });
 </script>
-
 
 @endsection
