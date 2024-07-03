@@ -35,9 +35,9 @@
                         @foreach ($salaries as $salary)
                               <tr>
                               <td>{{$loop->iteration}}</td>
-                              <td>{{$salary->employee->name}}</td>
-                              <td>{{$salary->designation->name}}</td>
-                              <td>{{$salary->department->name}}</td>
+                              <td>{{$salary->employee_name}}</td>
+                              <td>{{$salary->designation_name}}</td>
+                              <td>{{$salary->department_name}}</td>
                               <td>{{$salary->amount}}</td>
                               <td>{{$salary->transportation}}</td>
                               <td>{{$salary->food}}</td>

@@ -19,8 +19,14 @@ class SalaryController extends Controller
 
     public function index()
     {
-     $data['salaries']=Salary::with('employee', 'designation','department')->get();  
-      // dd($data['salaries']);
+    
+     $data['salaries']=DB::table('salaries as s')
+     ->join('employees as e', 's.employee_id', '=', 'e.id')
+     ->join('designations as d', 's.designation_id', '=', 'd.id')
+     ->join('departments as dpt', 's.department_id', '=', 'dpt.id')
+     ->select('s.status','s.id','e.name as employee_name', 'd.name as designation_name', 'dpt.name as department_name', 's.amount', 's.transportation', 's.food', 's.residance')
+     ->get();
+
      return view('backend.salary.list', $data);
     }
 
