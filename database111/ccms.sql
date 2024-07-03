@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2024 at 01:27 PM
+-- Generation Time: Jul 03, 2024 at 01:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -47,10 +47,12 @@ CREATE TABLE `attendances` (
 INSERT INTO `attendances` (`id`, `user_id`, `employee_id`, `login_date`, `login_time`, `logout_time`, `login_status`, `reason_late_in`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, '2024-06-25', '12:25:50', '12:25:50', 'late', 'illness', '2024-06-25 06:25:50', '2024-06-25 11:53:47'),
 (2, 1, 7, '2024-06-25', '10:29:28', '10:29:28', 'normal', 'transportation', '2024-06-25 06:29:28', '2024-06-25 11:58:42'),
-(3, 1, 6, '2024-06-25', '12:31:13', '12:31:13', 'late', 'family_issue', '2024-06-25 06:31:13', '2024-06-27 04:37:53'),
-(11, 1, 6, '2024-06-25', '12:31:13', '12:31:13', 'late', 'family_issue', '2024-06-25 06:31:13', '2024-06-27 04:37:53'),
-(12, 1, 6, '2024-06-25', '12:31:13', '12:31:13', 'late', 'family_issue', '2024-06-25 06:31:13', '2024-06-27 04:37:53'),
-(13, 1, 6, '2024-06-25', '12:31:13', '12:31:13', 'late', 'family_issue', '2024-06-25 06:31:13', '2024-06-27 04:37:53');
+(3, 1, 6, '2024-06-25', '12:31:13', '12:31:13', 'late', 'family_issue', '2024-07-01 06:31:13', '2024-06-27 04:37:53'),
+(11, 1, 6, '2024-06-25', '12:31:13', '12:31:13', 'late', 'family_issue', '2024-07-02 06:31:13', '2024-06-27 04:37:53'),
+(12, 1, 6, '2024-06-25', '12:31:13', '12:31:13', 'late', 'family_issue', '2024-07-03 06:31:13', '2024-06-27 04:37:53'),
+(13, 1, 6, '2024-06-25', '12:31:13', '12:31:13', 'late', 'family_issue', '2024-06-25 06:31:13', '2024-06-27 04:37:53'),
+(14, 1, 1, '2024-07-03', '11:19:49', '11:19:49', 'late', 'transportation', '2024-07-03 05:19:49', '2024-07-03 05:21:09'),
+(15, 3, 6, '2024-07-03', '13:39:20', '13:39:20', 'late', NULL, '2024-07-03 07:39:20', '2024-07-03 07:39:20');
 
 -- --------------------------------------------------------
 
@@ -124,6 +126,9 @@ INSERT INTO `designations` (`id`, `name`, `status`, `created_at`, `updated_at`) 
 CREATE TABLE `employees` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `department_id` bigint(20) UNSIGNED NOT NULL,
+  `designation_id` bigint(20) UNSIGNED NOT NULL,
   `employeeUniqueId` varchar(10) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -134,12 +139,10 @@ CREATE TABLE `employees` (
 -- Dumping data for table `employees`
 --
 
-INSERT INTO `employees` (`id`, `name`, `employeeUniqueId`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Ali Rimon', '54500', 1, '2024-06-27 05:43:51', '2024-06-27 05:43:51'),
-(3, 'Omar Faruk', '69873', 1, '2024-06-27 05:45:32', '2024-06-27 06:05:29'),
-(5, 'Shariful Islams', '67745', 1, '2024-06-27 05:49:17', '2024-06-27 05:58:31'),
-(6, 'Ranvir Islam', '65953', 1, '2024-06-27 06:05:52', '2024-06-27 06:05:52'),
-(7, 'Ali Abu Taleb', '37628', 1, '2024-06-27 06:07:13', '2024-06-27 06:07:29');
+INSERT INTO `employees` (`id`, `name`, `user_id`, `department_id`, `designation_id`, `employeeUniqueId`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Ali rimon', 4, 1, 1, '98467', 1, '2024-07-03 09:10:34', '2024-07-03 09:10:34'),
+(2, 'Ali Abu Taleb', 5, 1, 1, '44246', 1, '2024-07-03 09:11:06', '2024-07-03 09:11:06'),
+(3, 'Ranvir Islam', 3, 1, 1, '32298', 1, '2024-07-03 09:12:52', '2024-07-03 09:12:52');
 
 -- --------------------------------------------------------
 
@@ -314,7 +317,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2024_06_24_101348_create_campaigns_table', 6),
 (24, '2024_06_24_165111_create_attendances_table', 8),
 (25, '2024_06_26_102426_create_leaves_table', 9),
-(26, '2024_06_20_095414_create_employees_table', 10),
 (28, '2024_06_27_153436_create_user_emp_wise_leads_table', 11),
 (30, '2024_06_23_105641_create_leads_table', 12),
 (31, '2024_06_30_141248_create_per_leads_table', 13),
@@ -351,7 +353,8 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
-(1, 'App\\Models\\User', 2);
+(1, 'App\\Models\\User', 2),
+(2, 'App\\Models\\User', 3);
 
 -- --------------------------------------------------------
 
@@ -375,7 +378,8 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
-('64999fa6-cfa4-45a5-bb8e-30c696d245af', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 2, '{\"message\":\"Your account has been created successfully. Please change your password.\",\"title\":\"Account Created\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/change-password\"}', '2024-06-30 07:55:04', '2024-06-30 07:12:01', '2024-06-30 07:55:04');
+('64999fa6-cfa4-45a5-bb8e-30c696d245af', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 2, '{\"message\":\"Your account has been created successfully. Please change your password.\",\"title\":\"Account Created\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/change-password\"}', '2024-06-30 07:55:04', '2024-06-30 07:12:01', '2024-06-30 07:55:04'),
+('7378b682-5486-45b8-a5b4-b4796803c544', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 3, '{\"message\":\"Your account has been created successfully. Please change your password.\",\"title\":\"Account Created\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/change-password\"}', NULL, '2024-07-03 06:12:25', '2024-07-03 06:12:25');
 
 -- --------------------------------------------------------
 
@@ -443,7 +447,8 @@ INSERT INTO `permissions` (`id`, `name`, `group_name`, `guard_name`, `created_at
 (19, 'leave.add', 'Apply for Leave', 'web', '2024-06-26 11:35:54', '2024-06-26 11:35:54', NULL),
 (20, 'per_lead.list', 'Per Lead', 'web', '2024-06-30 09:36:49', '2024-06-30 09:36:49', NULL),
 (21, 'lead_offer.list', 'Offer', 'web', '2024-06-30 10:53:16', '2024-06-30 10:53:16', NULL),
-(22, 'monthly_salary.list', 'Monthly Salary', 'web', '2024-07-01 08:18:13', '2024-07-01 08:18:13', NULL);
+(22, 'monthly_salary.list', 'Monthly Salary', 'web', '2024-07-01 08:18:13', '2024-07-01 08:18:13', NULL),
+(23, 'attendance.deduction_summery', 'Deduction Summery', 'web', '2024-07-03 04:28:55', '2024-07-03 04:28:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -505,7 +510,8 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'superadmin', 'web', '2024-05-27 05:16:39', '2024-05-27 05:16:39', NULL);
+(1, 'superadmin', 'web', '2024-05-27 05:16:39', '2024-05-27 05:16:39', NULL),
+(2, 'agent', 'web', '2024-07-03 06:10:33', '2024-07-03 06:10:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -524,6 +530,7 @@ CREATE TABLE `role_has_permissions` (
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (1, 1),
+(1, 2),
 (2, 1),
 (3, 1),
 (4, 1),
@@ -540,11 +547,16 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (15, 1),
 (16, 1),
 (17, 1),
+(17, 2),
 (18, 1),
+(18, 2),
 (19, 1),
+(19, 2),
 (20, 1),
 (21, 1),
-(22, 1);
+(22, 1),
+(23, 1),
+(23, 2);
 
 -- --------------------------------------------------------
 
@@ -617,7 +629,10 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `profile_image`, `email`, `phone`, `email_verified_at`, `password`, `status`, `user_type`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Ali Abu Taleb', NULL, 'admin@gmail.com', '01846699646', NULL, '$2y$10$i6RElskd7XhE42mnO8kPneXahaeh9jzvszhbGRBV4ROP01tUYwKKi', 1, 'admin', NULL, '2024-05-27 05:16:39', '2024-05-27 05:16:39', NULL),
-(2, 'Ali Rimon', NULL, 'alirimon5@gmail.com', '01638912320', NULL, '$2y$10$.aIyvRXImXfb/8Rzs6n.mONHR9e/tOySCXxdoq51CgKnT7qZcBNY2', 1, 'admin', NULL, '2024-06-30 07:12:00', '2024-06-30 07:12:00', NULL);
+(2, 'Ali Rimon', NULL, 'alirimon5@gmail.com', '01638912320', NULL, '$2y$10$.aIyvRXImXfb/8Rzs6n.mONHR9e/tOySCXxdoq51CgKnT7qZcBNY2', 1, 'admin', NULL, '2024-06-30 07:12:00', '2024-06-30 07:12:00', NULL),
+(3, 'Ranvir Islam', NULL, 'alirimon10@gmail.com', '01816042120', NULL, '$2y$10$i00iYQidnpv..NPiKB7aqePT4vV4LTde6z5HXnj9DanLsW6FMAE8K', 1, 'agent', NULL, '2024-07-03 06:12:24', '2024-07-03 06:12:24', NULL),
+(4, 'Ali Rimon', NULL, 'alirimon11@gmail.com', '01816042121', NULL, '$2y$10$i00iYQidnpv..NPiKB7aqePT4vV4LTde6z5HXnj9DanLsW6FMAE8K', 1, 'agent', NULL, '2024-07-03 06:12:24', '2024-07-03 06:12:24', NULL),
+(5, 'Ali Abu Taleb', NULL, 'alirimon12@gmail.com', '01816042122', NULL, '$2y$10$i00iYQidnpv..NPiKB7aqePT4vV4LTde6z5HXnj9DanLsW6FMAE8K', 1, 'agent', NULL, '2024-07-03 06:12:24', '2024-07-03 06:12:24', NULL);
 
 -- --------------------------------------------------------
 
@@ -725,9 +740,7 @@ ALTER TABLE `designations`
 -- Indexes for table `employees`
 --
 ALTER TABLE `employees`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `employees_employeeuniqueid_unique` (`employeeUniqueId`),
-  ADD KEY `employees_name_index` (`name`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -904,7 +917,7 @@ ALTER TABLE `user_otps`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `campaigns`
@@ -928,7 +941,7 @@ ALTER TABLE `designations`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -976,7 +989,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -994,7 +1007,7 @@ ALTER TABLE `per_leads`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `salaries`
@@ -1012,7 +1025,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_emp_wise_leads`
