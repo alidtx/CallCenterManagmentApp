@@ -29,24 +29,18 @@ class LeadController extends Controller
      return view('backend.lead.list', $data);
     }
 
-
     public function view($id) {
         $lead = Lead::with('employees', 'campaigns')->find($id);
         return view('backend.lead.view', compact('lead'));
     }
     
-
-
-
-
     public function leadSubmissionForm() 
     {      
     $data['campaigns']=Campaign::where('status', '1')->orderby('id', 'DESC')->get();
-    $data['employees']=Employee::where('status', '1')->orderby('id', 'DESC')->get();
+    $data['employees']=Employee::where('user_id', Auth::user()->id)->where('status', '1')->first();
     return view('backend.lead.submission_form', $data);
     }
  
-    
     public function leadOfferId() 
 
     {

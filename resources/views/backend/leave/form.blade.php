@@ -30,7 +30,7 @@
               </select>
           @else
                <input type="hidden" name="employee_id" id="employee_id" class="form-control" value="{{$employee->id}}">
-              <input type="text" name="employee_id" id="employee_id" class="form-control" value="{{$employee->name}}" readonly>
+              <input type="text"  id="employee_id" class="form-control" value="{{$employee->name}}" readonly>
           @endif
       </div>
       <div class="form-group">
@@ -43,7 +43,8 @@
                   @endforeach
               </select>
           @else
-              <input type="text" name="designation_id" id="designation_id" class="form-control" value="{{ @$designation->name }}" readonly>
+             <input type="hidden" name="designation_id" id="employee_id" class="form-control" value="{{$designation->id}}">
+              <input type="text" id="designation_id" class="form-control" value="{{ @$designation->name }}" readonly>
           @endif
       </div>
       <div class="form-group">
@@ -56,7 +57,8 @@
                   @endforeach
               </select>
           @else
-              <input type="text" name="department_id" id="department_id" class="form-control" value="{{ @$department->name }}" readonly>
+            <input type="hidden" name="department_id" id="employee_id" class="form-control" value="{{$department->id}}">
+              <input type="text"  class="form-control" value="{{ @$department->name }}" readonly>
           @endif
       </div>
       <div class="form-group">
