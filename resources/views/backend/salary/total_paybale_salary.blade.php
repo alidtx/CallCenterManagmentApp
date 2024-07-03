@@ -56,11 +56,11 @@
                         </tr>
 
                         <tr>
-                            <td><strong>Late deduction Days</strong></td>
+                            <td><strong>Late Count</strong></td>
                               @php  
                                     $dailySalary = $employee_salaries->salary_amount / 22;
                                     $deductionPeriods = intdiv($employee_salaries->late_days, 3);
-                                    $deductedAmount = $dailySalary * 3 * $deductionPeriods; 
+                                    $deductedAmount = $dailySalary * $deductionPeriods; 
                               @endphp
                             <td>{{ $deductionPeriods  }} Days</td>
                         </tr>

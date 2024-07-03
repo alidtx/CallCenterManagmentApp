@@ -9,6 +9,7 @@
 </style>
 <div class="content-wrapper">
     <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    
     <div class="container-xxl flex-grow-1 container-p-y">
          @if(session()->has('error'))
         <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">

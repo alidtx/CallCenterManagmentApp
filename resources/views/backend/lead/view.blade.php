@@ -5,9 +5,12 @@
 
 <div class="content-wrapper">
     <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
-        
+            <div class="float-start">
+                <button class="btn btn-primary" onclick="downloadTableAsImage()">Download</button>
+            </div>
                 <table class="table" width="100%" cellspacing="0"  id="user_table">
                     <tbody>
                         <tr>
@@ -65,5 +68,21 @@
     </div>
 </div>
 </div>
+
+<script> 
+    function downloadTableAsImage() {  
+    html2canvas(document.getElementById("user_table"), {
+        onrendered: function(canvas) {
+            var img = canvas.toDataURL("image/jpeg");
+            var link = document.createElement('a');
+            link.href = img;
+            link.download ='lead.jpg';
+            link.click();
+        }
+    });
+}
+
+</script>
+
 
 @endsection

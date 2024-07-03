@@ -20,7 +20,6 @@ class LeadOfferController extends Controller
     public function create($id='')
     {
          if($id>0){
-
              $arr=LeadOffer::where('id', $id)->get(); 
              $result['amount']=$arr[0]->amount;    
              $result['type']=$arr[0]->type;    

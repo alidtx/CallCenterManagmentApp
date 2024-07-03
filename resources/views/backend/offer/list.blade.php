@@ -9,12 +9,12 @@
       
         <div class="card">
             <div class="card-header border-bottom">    
-            
-                 <div class="float-end">
-                    <a class="btn btn-primary" href="{{ route('lead_offer.add') }}"><i class="fa fa-plus"></i>Add
-                      Lead Offer</a>
-                    </div>
-            
+
+            <div class="float-end">
+                <a class="btn btn-primary" href="{{ route('lead_offer.add') }}"><i class="fa fa-plus"></i>Add
+                Lead Offer</a>
+            </div>
+        
             </div>
             <div class="card-datatable table-responsive">
                 <table class="table" width="100%" cellspacing="0"  id="user_table">

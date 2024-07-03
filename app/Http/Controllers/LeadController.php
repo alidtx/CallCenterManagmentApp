@@ -36,22 +36,7 @@ class LeadController extends Controller
     }
     
 
-    public function download () {
 
-        $data = [
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'email' => 'johndoe@example.com',
-            'business_name' => 'Doe Enterprises',
-            'looking_amount' => '$10,000',
-            'credit_score' => '750',
-            'phone' => '123-456-7890',
-            'campaign' => 'Summer Campaign',
-            'username' => 'johndoe123',
-        ];
-        $pdf = PDF::loadView('backend.lead.view', $data);
-        return $pdf->download('form.pdf');
-    } 
 
 
     public function leadSubmissionForm() 

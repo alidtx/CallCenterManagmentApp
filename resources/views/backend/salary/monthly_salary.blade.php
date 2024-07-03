@@ -40,7 +40,7 @@
                         @php
                             $dailySalary = $employee_salary->salary_amount / 22;
                             $deductionPeriods = intdiv($employee_salary->late_days, 3);
-                            $deductedSalary = $dailySalary * 3 * $deductionPeriods; 
+                            $deductedSalary = $dailySalary * $deductionPeriods; 
                             $total_salary = $employee_salary->salary_amount
                                 + $employee_salary->salary_transport
                                 + $employee_salary->salary_food

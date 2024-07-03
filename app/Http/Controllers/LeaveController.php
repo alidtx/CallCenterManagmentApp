@@ -8,6 +8,7 @@ use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Employee;
 use App\Models\Leave;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -34,13 +35,33 @@ class LeaveController extends Controller
         return view('backend.leave.pending_application', $data);
     }
     
-    public function create($id='')
-    {   
-        $result['employees']=Employee::get();
-        $result['designations']=Designation::get();
-        $result['departments']=Department::get(); 
-        return view('backend.leave.add', $result);
-    }   
+    public function create($id = '')
+{   
+    $userData = User::find(auth::user()->id);
+    
+    if ($userData->user_type == 'admin') {
+        $employees = Employee::all();
+        $designations = Designation::all();
+        $departments = Department::all();
+        $data = [
+            'employees' => $employees,
+            'designations' => $designations,
+            'departments' => $departments,
+        ];
+    } else {
+        $employee = Employee::where('user_id', Auth::user()->id)->first();
+        $designation = Designation::where('id', $employee->designation_id)->first();
+        $department = Department::where('id', $employee->department_id)->first();
+        $data = [
+            'employee' => $employee,
+            'designation' => $designation,
+            'department' => $department,
+        ];
+    }
+    
+    return view('backend.leave.add', $data);
+}
+
 
    
     public function store(LeaveRequest $request)

@@ -14,10 +14,20 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id(); 
             $table->string('name', 50);  
+            $table->unsignedBigInteger('user_id');  
+            $table->unsignedBigInteger('department_id');  
+            $table->unsignedBigInteger('designation_id');  
             $table->string('employeeUniqueId', 10)->unique();  
             $table->boolean('status')->default(1);  
             $table->timestamps(); 
-            $table->index('name');  // Indexing name for faster search
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('casecade');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('casecade');
+            $table->foreign('designation_id')->references('id')->on('designations')->onDelete('casecade');
+            $table->index('name');  
+            $table->index('user_id');
+            $table->index('department_id');
+            $table->index('designation_id');
+
         });
     }
 

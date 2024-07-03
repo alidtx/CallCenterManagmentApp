@@ -36,6 +36,7 @@ Auth::routes();
 
 
 Route::group(['middleware' => ['auth']], function () {
+    
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
     Route::resource('roles', RoleController::class);
@@ -143,7 +144,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('store', [AttendanceController::class,'store'])->name('attendance.store');
         Route::get('late_attend', [AttendanceController::class,'lateAttend'])->name('attendance.late_attend');
         Route::post('reason_late_in', [AttendanceController::class,'ReasonLetIn'])->name('attendance.reason_late_in');
-        Route::get('deduction_summery', [AttendanceController::class,'ReasonLetIn'])->name('attendance.reason_late_in');
+        Route::get('deduction_summery', [AttendanceController::class,'deductionSummery'])->name('attendance.deduction_summery');
     });
   
 

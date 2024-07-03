@@ -231,6 +231,17 @@
         </ul>
     @endcan
 
+    @can('attendance.deduction_summery')
+        
+        <ul class="menu-sub">
+            <li class="menu-item {{ Route::is('attendance.*') ? 'active ' : '' }}">
+                <a href="{{ route('attendance.deduction_summery') }}" class="menu-link">
+                    <div data-i18n="Deduction">Deduction</div>
+                </a>
+            </li>
+        </ul>
+    @endcan
+
     </li>
 @endif
 

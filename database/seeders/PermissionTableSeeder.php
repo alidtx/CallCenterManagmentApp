@@ -129,6 +129,13 @@ $permissions = [
 ]
 ],
 
+[
+'group_name' => 'Deduction Summery',
+'permissions' => [
+'attendance.deduction_summery',
+]
+],
+
                                     
 ];
         // Do same for the admin guard for tutorial purposes

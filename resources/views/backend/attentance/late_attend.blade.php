@@ -58,7 +58,7 @@
      
 
     $(document).ready(function() {
-
+        
         $(".reason-btn").click(function() {
         let attendanceId = $(this).attr('data-id');
           $("#attendanceId").val(attendanceId);

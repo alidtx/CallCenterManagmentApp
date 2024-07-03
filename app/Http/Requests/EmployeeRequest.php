@@ -24,13 +24,16 @@ class EmployeeRequest extends FormRequest
         return [
               'name'=>'required',
               'employeeUniqueId'=>'unique',
+              'user_id' => 'required|unique:employees,user_id',
         ];
     }
 
    public function messages()
    {
         return[
-              'employeeUniqueId.unique'=>'Employee id must be unique!'
+              'employeeUniqueId.unique'=>'Employee id must be unique!',
+              'user_id.required'=>'User name is required!',
+              'user_id.unique'=>'This user is already Taken!'
         ];
    }
 

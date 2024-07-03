@@ -71,7 +71,7 @@
               <div class="numbers">
                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Monthly Rank</p>
                 <h5 class="font-weight-bolder mb-0">
-                  {{ $rank ? $rank : 'Not Found'  }}
+                  {{-- {{ $rank ? $rank : 'Not Found'  }} --}}
                   <span class="text-success text-sm font-weight-bolder">Position</span>
                 </h5>
               </div>

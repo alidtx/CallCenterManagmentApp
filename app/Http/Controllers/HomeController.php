@@ -74,7 +74,7 @@ class HomeController extends Controller
            'weeklyPercentage'=>floor($weeklyPercentage), 
            'monthlyTotalUserLeads'=>$monthlyTotalUserLeads, 
            'monthlyPercentage'=>floor($monthlyPercentage), 
-           'rank'=>$rank, 
+        //    'rank'=>$rank, 
          ];
         // dd($data);
         return view('home', $data);

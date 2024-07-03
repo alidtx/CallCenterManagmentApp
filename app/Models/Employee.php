@@ -27,4 +27,6 @@ class Employee extends Model
         return $this->belongsToMany(Lead::class, 'user_emp_wise_leads');
     }
 
+    
+
 }

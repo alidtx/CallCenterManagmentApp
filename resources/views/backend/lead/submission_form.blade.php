@@ -124,8 +124,10 @@ body{
 
                     <div class="form-group">
                         <label>Your Name<small style="color: brown">*</small></label>
+                      
                          <select name="employee_id" id="employee_id" class="form-control"> 
                               <option value="">----Select Your Name----</option>
+
                                @foreach ($employees as $employees )
                                <option value="{{ $employees->id }}">{{ $employees->name."($employees->employeeUniqueId)" }}</option>
                                @endforeach  
