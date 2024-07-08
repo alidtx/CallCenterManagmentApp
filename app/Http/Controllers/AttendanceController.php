@@ -15,9 +15,21 @@ class AttendanceController extends Controller
     public function index()
     {
     
- 
-     $data['attendance']=Attendance::with('user')->where('user_id', auth::user()->id)->latest()->first();
-     $data['todayAttendance']=Attendance::where('user_id',auth::user()->id)->latest()->first();
+        $currentTime =Carbon::now();  
+        $data['todayAttendances'] = DB::table('attendances as a')
+        ->whereDate('login_date', $currentTime->toDateString())
+        ->join('users as u', 'a.user_id', '=', 'u.id')
+        ->join('employees as e', 'a.employee_id', '=', 'e.id')
+        ->select(
+            'a.login_date',
+            'a.login_time',
+            'a.login_status',
+            'u.name as user_name',
+            'e.name as employee_name'
+        )
+        ->where('a.login_status', 'late')
+        ->get();
+     
      return view('backend.attentance.list',$data);
     }
     
@@ -48,40 +60,9 @@ class AttendanceController extends Controller
     return view('backend.attentance.deduction', $data);
    }
 
-    public function store(Request $request)
-    {
-
-    $existingAttendance = Attendance::where('user_id', auth::user()->id)
-        ->whereDate('login_date', Carbon::today())
-        ->first();
-    if ($existingAttendance){
-        return redirect()->route('attendance.list')->with('error', 'You have already taken today attendance, Please try again tomorrow');   
-    }else{ 
-        $data=Employee::where('user_id', auth::user()->id)->where('status', 1)->first();     
-        $model = new Attendance();
-        $model->user_id = auth::user()->id;
-        $model->employee_id =$data->id;
-        $currentDate = Carbon::today();
-        $model->login_date = $currentDate->toDateString();
-        $currentTime = Carbon::now();
-        $model->login_time = $currentTime->toTimeString();
-        $model->logout_time = $currentTime->toTimeString();
-        $cutoffTime = Carbon::now()->setTime(9, 30);
     
-        if ($currentTime > $cutoffTime) {
-            $model->login_status = 'late';
-        } else {
-            $model->login_status = 'normal';
-        }
-        $model->save();
-        return redirect()->route('attendance.list');
-    }
 
-    }
-
-
-    public function ReasonLetIn(Request $request) {
-       
+    public function ReasonLetIn(Request $request) {       
        $model=Attendance::find($request->attendance_id);
        $model->reason_late_in=$request->late_in_reason; 
        if($model->save()){
@@ -94,8 +75,5 @@ class AttendanceController extends Controller
     $data['lateAttends']=Attendance::where('user_id', auth::user()->id)->where('login_status','late')->get();
     return view('backend.attentance.late_attend',$data);
   }
-
-
-
 
 }

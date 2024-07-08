@@ -27,7 +27,7 @@
                             <th >Transporation</th>
                             <th>Food</th>
                             <th >Residance</th>
-                            <th width="30%">Actions</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody> 

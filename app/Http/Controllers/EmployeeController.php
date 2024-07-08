@@ -24,7 +24,7 @@ class EmployeeController extends Controller
    
     public function create($id='')
     {    
-        $result['users']=User::where('status', 1)->where('user_type', 'agent')->get();
+        $result['users']=User::where('status', 1)->get();
         $result['designations']=Designation::where('status', 1)->get();
         $result['departments']=Department::where('status', 1)->get();
          if($id>0){

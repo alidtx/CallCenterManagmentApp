@@ -38,6 +38,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/store', [App\Http\Controllers\HomeController::class, 'store'])->name('home.store');
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
@@ -141,7 +142,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     route::prefix('attendance')->group(function(){
         Route::get('list', [AttendanceController::class,'index'])->name('attendance.list');
-        Route::get('store', [AttendanceController::class,'store'])->name('attendance.store');
         Route::get('late_attend', [AttendanceController::class,'lateAttend'])->name('attendance.late_attend');
         Route::post('reason_late_in', [AttendanceController::class,'ReasonLetIn'])->name('attendance.reason_late_in');
         Route::get('deduction_summery', [AttendanceController::class,'deductionSummery'])->name('attendance.deduction_summery');
@@ -157,8 +157,4 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('status/{status}/{id}', [LeaveController::class,'status'])->name('leave.status');
         
     });
-
-    
-
-
 });

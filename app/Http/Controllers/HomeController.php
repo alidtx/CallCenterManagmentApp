@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\Lead;
+use App\Models\Attendance;
+use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
@@ -32,7 +34,11 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {  
-  
+         //attent start
+        $attendance=Attendance::with('user')->where('user_id', auth::user()->id)->latest()->first();
+        $todayAttendance=Attendance::where('user_id',auth::user()->id)->latest()->first(); 
+       
+        //attent end
         $dailytotalLeads=Lead::whereDate('created_at', Carbon::today())->count();  
         $totalDailyUsersLeads=Lead::where('user_id', auth::user()->id)->whereDate('created_at', Carbon::today())->count();  
         $dailyPercentage=$totalDailyUsersLeads > 0 ? ($totalDailyUsersLeads/$dailytotalLeads )* 100: 0;
@@ -74,10 +80,47 @@ class HomeController extends Controller
            'weeklyPercentage'=>floor($weeklyPercentage), 
            'monthlyTotalUserLeads'=>$monthlyTotalUserLeads, 
            'monthlyPercentage'=>floor($monthlyPercentage), 
+           'attendance'=>$attendance, 
+           'todayAttendance'=>$todayAttendance, 
         //    'rank'=>$rank, 
          ];
         // dd($data);
         return view('home', $data);
+    }
+
+    public function store(Request $request)
+   
+    {
+    $data=Employee::where('user_id', auth::user()->id)->where('status', 1)->first(); 
+    $existingAttendance = Attendance::where('user_id', auth::user()->id)
+        ->whereDate('login_date', Carbon::today())
+        ->first();
+    if ($existingAttendance){
+        return redirect()->route('home')->with('error', 'You have already taken today attendance, Please try again tomorrow');   
+    }else{ 
+        $data=Employee::where('user_id', auth::user()->id)->where('status', 1)->first();
+         if (!empty($data))
+         {
+            $model = new Attendance();
+            $model->user_id = auth::user()->id;
+            $model->employee_id =$data->id;
+            $currentDate = Carbon::today();
+            $model->login_date = $currentDate->toDateString();
+            $currentTime = Carbon::now();
+            $model->login_time = $currentTime->toTimeString();
+            $model->logout_time = $currentTime->toTimeString();
+            $cutoffTime = Carbon::now()->setTime(9, 30);           
+            if ( $cutoffTime->toTimeString() < $currentTime->toTimeString() ) {
+                $model->login_status = 'late';
+            } else {
+                $model->login_status = 'normal';
+            }  
+            $model->save();
+            return redirect()->route('home')->with('error', 'You have sucessfully attent for today.');
+         }else{
+            return redirect()->route('home')->with('error', 'Ask your boss to generate your employee ID');
+         }     
+    }
     }
 
     public function getLastFourWeekPurchaseData(Request $request)
