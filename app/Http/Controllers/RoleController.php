@@ -101,7 +101,6 @@ class RoleController extends Controller
         $this->validate($request, [
 
             'name' => 'required|unique:roles,name',
-
             'permission' => 'required',
 
         ]);
@@ -194,7 +193,6 @@ class RoleController extends Controller
         $this->validate($request, [
 
             'name' => 'required',
-
             'permission' => 'required',
 
         ]);
@@ -202,9 +200,7 @@ class RoleController extends Controller
 
 
         $role = Role::find($id);
-
         $role->name = $request->input('name');
-
         $role->save();
         $role->syncPermissions($request->input('permission'));
         Toastr::success('Role updated successfully');

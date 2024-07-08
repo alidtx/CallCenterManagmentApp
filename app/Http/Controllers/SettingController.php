@@ -37,6 +37,7 @@ class SettingController extends Controller
         foreach ($data as $key => $value) {
 
             if ($request->hasFile($key)) {
+                
                 $value = (new FileUploadService)->uploadOne($request->file($key), "public/$key", "$key");
             }
             Setting::set($key, $value);

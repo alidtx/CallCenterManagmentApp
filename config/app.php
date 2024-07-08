@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
+    
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -170,6 +171,7 @@ return [
         /*
          * Application Service Providers...
          */
+       
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -180,6 +182,9 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
     ])->toArray(),
 
+
+ 
+    
     /*
     |--------------------------------------------------------------------------
     | Class Aliases
@@ -197,6 +202,7 @@ return [
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+    
     ])->toArray(),
 
 ];

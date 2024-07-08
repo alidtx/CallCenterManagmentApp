@@ -133,10 +133,7 @@ class HomeController extends Controller
             ->groupBy('year', 'week')
             ->orderBy('year', 'week')
             ->get();
-
-
         dd($weeklyOrders);
-
         return $weeklyOrders;
     }
     public function change_password(Request $request)
