@@ -19,6 +19,7 @@ class EmployeeController extends Controller
      
      $data['employees']=Employee::orderby('id', 'DESC')->paginate(10);  
      return view('backend.employee.list', $data);
+     
     }
 
    

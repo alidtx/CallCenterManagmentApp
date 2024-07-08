@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 class LeaveController extends Controller
 {
 
@@ -31,14 +32,18 @@ class LeaveController extends Controller
 
     public function pendingApplication() 
     {
-        $data['pendingLeaveApplications'] = Attendance::with('employee')->get();
+        $data['pendingLeaveApplications'] =DB::table('attendances as a')
+        ->join('employees as e', 'e.id', '=', 'a.employee_id')
+        ->select('a.login_date', 'a.login_time', 'a.login_status', 'e.name')
+        ->get();
+        dd($data['pendingLeaveApplications']);
         return view('backend.leave.pending_application', $data);
     }
     
     public function create($id = '')
-{   
+
+    {   
     $userData = User::find(auth::user()->id);
-    
     if ($userData->user_type == 'admin') {
         $employees = Employee::all();
         $designations = Designation::all();
@@ -58,14 +63,14 @@ class LeaveController extends Controller
             'department' => $department,
         ];
     }
-    
     return view('backend.leave.add', $data);
 }
 
 
    
     public function store(LeaveRequest $request)
-    {   
+    
+     {   
         // dd($request->all());
         $model=new Leave();
         $model->user_id=auth::user()->id;
@@ -89,14 +94,14 @@ class LeaveController extends Controller
         //
     }
 
-
-  public function status($status, $id) {
+  public function status($status, $id) 
+   {
      $model=Leave::find($id);
      $model->status=$status;
      $model->save();
      return redirect()->route('leave.list');
      Toastr::success('Employee status has changed successfully', 'Status');
-  }
+   }
 
 
 }

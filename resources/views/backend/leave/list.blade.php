@@ -40,7 +40,6 @@
                               <a href="{{url('leave/status/0')}}/{{ $leave->id }}"><button type="button" class="btn btn-primary btn-sm">Unapprove</button></a>
                               @endif
                               </td>
-                                
                           </tr>
                         @endforeach
                         @include('layouts.table-footer', ['linkData' => $leaves])
