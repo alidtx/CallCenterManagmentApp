@@ -35,6 +35,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {  
          //attent start
+         
         $attendance=Attendance::with('user')->where('user_id', auth::user()->id)->latest()->first();
         $todayAttendance=Attendance::where('user_id',auth::user()->id)->latest()->first(); 
        
@@ -55,12 +56,9 @@ class HomeController extends Controller
           $weeklyPercentage= $TotalUserLeads > 0 ? ($TotalUserLeads/$totalWeeklyLeads )* 100: 0;
           $monthlyTotalLeads = Lead::whereMonth('created_at', Carbon::now()->month)
           ->count();
-
           $monthlyTotalUserLeads = Lead::where('user_id',auth::user()->id)->whereMonth('created_at', Carbon::now()->month)
           ->count();
-
           $monthlyPercentage=$monthlyTotalLeads > 0 ? ($monthlyTotalUserLeads/$monthlyTotalLeads )* 100: 0;
-          
           $currentUserId = auth()->user()->id;
           $userRank = Lead::select('user_id', DB::raw('COUNT(*) as lead_count'))
               ->whereMonth('created_at', Carbon::now()->month)
@@ -70,9 +68,7 @@ class HomeController extends Controller
               ->search($currentUserId);
              if ($userRank !== false) { 
               $rank= $userRank += 1;
-          
               } 
-        
           $data=[
            'totalDailyUsersLeads'=>$totalDailyUsersLeads,
            'dailyPercentage'=>floor($dailyPercentage), 
@@ -125,7 +121,6 @@ class HomeController extends Controller
 
     public function getLastFourWeekPurchaseData(Request $request)
     {
-
         $fourWeeksAgo = Carbon::now()->subWeeks(4);
         $weeklyOrders = DB::table('orders')
             ->select(DB::raw('YEAR(created_at) as year, WEEK(created_at) as week'), DB::raw('COUNT(*) as total_orders'))

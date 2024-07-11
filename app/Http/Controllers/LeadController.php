@@ -66,6 +66,7 @@ class LeadController extends Controller
          ];
 
          $message=[
+
            'first_name.required'=>'Please enter first name',
             'last_name.required'=>'Please enter last name',
             'email.required'=>'Please enter email',

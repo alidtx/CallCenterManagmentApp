@@ -42,9 +42,7 @@ class SettingController extends Controller
             }
             Setting::set($key, $value);
         }
-
         Toastr::success('Settings updated successfully');
-
         return redirect()->back();
     }
 }

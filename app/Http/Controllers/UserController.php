@@ -36,15 +36,19 @@ class UserController extends Controller
         if ($request->filled("user_id")) {
             $query->where("id", $request->user_id);
         }
+
         if ($request->filled("email")) {
             $query->where("email", $request->email);
         }
+
         if ($request->filled("phone")) {
             $query->where("phone", $request->phone);
         }
+
         if ($request->filled("user_type")) {
             $query->where("user_type", $request->user_type);
         }
+
         $default_page = config("constants.default");
         $item_per_page = request()->input('per_page', $default_page);
         $users = $query->paginate($item_per_page)->appends($request->except("_token"));
@@ -90,11 +94,13 @@ class UserController extends Controller
             'profile_image' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
             'user_type' => 'required'
         ]);
+
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         if ($request->hasFile('profile_image')) {
             $input["profile_image"] =  $this->fileUploadService->uploadOne($request->file("profile_image"), 'public/profile_image', 'profile_image');
         }
+        
         $user = User::create($input);
         #notification
         $message = [

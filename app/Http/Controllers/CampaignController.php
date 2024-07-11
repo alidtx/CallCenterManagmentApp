@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
@@ -40,7 +39,6 @@ class CampaignController extends Controller
          Toastr::success('campaign edited successfully', 'edited');
          }else{
          $model=New Campaign();   
-
          Toastr::success('campaign created successfully', 'Created');
          }
          $model->name=$request->name;

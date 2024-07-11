@@ -26,7 +26,6 @@ class SalaryController extends Controller
      ->join('departments as dpt', 's.department_id', '=', 'dpt.id')
      ->select('s.status','s.id','e.name as employee_name', 'd.name as designation_name', 'dpt.name as department_name', 's.amount', 's.transportation', 's.food', 's.residance')
      ->get();
-
      return view('backend.salary.list', $data);
     }
 

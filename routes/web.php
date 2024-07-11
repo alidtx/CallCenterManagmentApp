@@ -58,45 +58,38 @@ Route::group(['middleware' => ['auth']], function () {
 
       
     route::prefix('employee')->group(function(){
-
         Route::get('list', [EmployeeController::class,'index'])->name('employee.list');
         Route::get('add', [EmployeeController::class,'create'])->name('employee.add');
         Route::get('add/{id}', [EmployeeController::class,'create'])->name('employee.addProcess');
         Route::post('store', [EmployeeController::class,'store'])->name('employee.store');
         Route::get('status/{status}/{id}', [EmployeeController::class,'status'])->name('employee.status');
-        
     });
 
     route::prefix('designation')->group(function(){
-
         Route::get('list', [DesignationController::class,'index'])->name('designation.list');
         Route::get('add', [DesignationController::class,'create'])->name('designation.add');
         Route::get('add/{id}', [DesignationController::class,'create'])->name('designation.addProcess');
         Route::post('store', [DesignationController::class,'store'])->name('designation.store');
-        Route::get('status/{status}/{id}', [DesignationController::class,'status'])->name('designation.status');
-        
+        Route::get('status/{status}/{id}', [DesignationController::class,'status'])->name('designation.status');    
     });
 
 
     route::prefix('department')->group(function(){
-
         Route::get('list', [DepartmentController::class,'index'])->name('department.list');
         Route::get('add', [DepartmentController::class,'create'])->name('department.add');
         Route::get('add/{id}', [DepartmentController::class,'create'])->name('department.addProcess');
         Route::post('store', [DepartmentController::class,'store'])->name('department.store');
         Route::get('status/{status}/{id}', [DepartmentController::class,'status'])->name('department.status');
-        
     });
 
     route::prefix('lead')->group(function(){
-
+        
         Route::get('list', [LeadController::class,'index'])->name('lead.list');
         Route::get('view/{id}', [LeadController::class,'view'])->name('lead.view');
         Route::get('download', [LeadController::class,'download'])->name('lead.download');
         Route::get('submission_form', [LeadController::class,'leadSubmissionForm'])->name('lead.submission_form');
         Route::post('store', [LeadController::class,'store'])->name('lead.store');
-        Route::post('employee_wise_lead_sum', [LeadController::class,'employeeWiseLeadSum'])->name('lead.employee_wise_lead_sum');
-         
+        Route::post('employee_wise_lead_sum', [LeadController::class,'employeeWiseLeadSum'])->name('lead.employee_wise_lead_sum');  
     });
 
     route::prefix('per_lead')->group(function(){
@@ -106,6 +99,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('add/{id}', [PerLeadController::class,'create'])->name('per_lead.addProcess');
         Route::post('store', [PerLeadController::class,'store'])->name('per_lead.store');
         Route::get('status/{status}/{id}', [PerLeadController::class,'status'])->name('per_lead.status');
+
     });
 
     route::prefix('lead_offer')->group(function(){
@@ -115,6 +109,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('add/{id}', [LeadOfferController::class,'create'])->name('lead_offer.addProcess');
         Route::post('store', [LeadOfferController::class,'store'])->name('lead_offer.store');
         Route::get('status/{status}/{id}', [LeadOfferController::class,'status'])->name('lead_offer.status');
+
     });
 
 
@@ -124,7 +119,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('add', [CampaignController::class,'create'])->name('campaign.add');
         Route::get('add/{id}', [CampaignController::class,'create'])->name('campaign.addProcess');
         Route::post('store', [CampaignController::class,'store'])->name('campaign.store');
-       Route::get('status/{status}/{id}', [CampaignController::class,'status'])->name('campaign.status');
+        Route::get('status/{status}/{id}', [CampaignController::class,'status'])->name('campaign.status');
+
         
     });
 
@@ -138,13 +134,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('status/{status}/{id}', [SalaryController::class,'status'])->name('salary.status');
         Route::get('monthly_salary', [SalaryController::class,'MonthlySalary'])->name('monthly_salary.list');
         Route::get('view_payable_salary/{id}', [SalaryController::class,'viewPayableSalary'])->name('salary.view_payable_salary');
+
     });
 
     route::prefix('attendance')->group(function(){
+
         Route::get('list', [AttendanceController::class,'index'])->name('attendance.list');
         Route::get('late_attend', [AttendanceController::class,'lateAttend'])->name('attendance.late_attend');
         Route::post('reason_late_in', [AttendanceController::class,'ReasonLetIn'])->name('attendance.reason_late_in');
         Route::get('deduction_summery', [AttendanceController::class,'deductionSummery'])->name('attendance.deduction_summery');
+
     });
   
 

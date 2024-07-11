@@ -11,6 +11,7 @@ use App\Models\Leave;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class LeaveController extends Controller
@@ -31,13 +32,33 @@ class LeaveController extends Controller
     }
 
     public function pendingApplication() 
-    {
-        $data['pendingLeaveApplications'] =DB::table('attendances as a')
-        ->join('employees as e', 'e.id', '=', 'a.employee_id')
-        ->select('a.login_date', 'a.login_time', 'a.login_status', 'e.name')
+    {    
+        
+        $pendingLeaveApplications = DB::table('attendances as a')
+        ->leftJoin('employees as e', 'e.id', '=', 'a.employee_id')
+        ->select('a.login_date', 
+                 'a.login_time', 
+                 'a.login_status', 
+                 'a.reason_late_in', 
+                 'e.name', 
+                 'a.user_id', 
+                 'a.created_at',
+                 DB::raw('DATE(a.login_date) as login_date')
+        )
+        ->where('a.user_id', auth::user()->id)
+        ->whereMonth('a.login_date', Carbon::now()->month)
         ->get();
-        dd($data['pendingLeaveApplications']);
-        return view('backend.leave.pending_application', $data);
+
+        $totalAttendance=[];
+
+        foreach ( $pendingLeaveApplications as $val)  {
+            $totalAttendance[]=$val->login_date;
+        }
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
+        dd($endDate);
+        return view('backend.leave.pending_application');
+
     }
     
     public function create($id = '')
@@ -85,7 +106,7 @@ class LeaveController extends Controller
         $model->reason_of_leave=$request->reason;
         $model->phone=$request->phone;
         $model->save(); 
-        Toastr::success('you have successfully taken leave, wait for approval', 'success');
+        Toastr::success('you have successfully taken leave, wait for approval', 'Pending');
         return redirect()->route('leave.list');
     }  
 

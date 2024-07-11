@@ -50,16 +50,19 @@ class EmployeeController extends Controller
   
 
      function generateUniqueEmployeeId() {
+
       do {
           $uniqueId = rand(10000, 99999); 
       } while (Employee::where('employeeUniqueId', $uniqueId)->exists());
   
       return $uniqueId;
+
     }
 
     public function store(EmployeeRequest $request)
     {   
 
+        
         if($request->id > 0){                          
             $model = Employee::find($request->id);
             Toastr::success('Employee edited successfully', 'edited');
@@ -68,6 +71,7 @@ class EmployeeController extends Controller
             Toastr::success('Employee created successfully', 'Created');
             $model->employeeUniqueId = $this->generateUniqueEmployeeId();
         }
+
         $model->name = $request->name;
         $model->user_id = $request->user_id;
         $model->designation_id = $request->designation_id;
